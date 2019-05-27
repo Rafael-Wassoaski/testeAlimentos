@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Aula{% endblock %}
+{% block content %}
+<h2>AULA 1 - O QUE É TECNOLOGIA DE ALIMENTOS</h2>
+A tecnologia de alimentos é um campo multidisciplinar que envolve conhecimentos das áreas de química, bioquímica, nutrição, farmácia e que refere-se a um conjunto de técnicas relativas aos processos de industrialização dos produtos de origem vegetal e animal. Além disso abrange técnicas gerenciais relacionada a este processos. Os profissionais da área devem ser aptos a gerenciar e planejar processos de transformação de alimentos e bebidas, implementar atividades, administrar, gerenciar recursos, promover mudanças tecnológicas e aprimorar condições de segurança, qualidade, saúde e meio ambiente.
+<br>
+<br>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0JDPtoxT2jI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br>
+<br>
+Eh isto ai!
+<form method="post" class="uniForm">
+    {{ my_formset|crispy }}
+</form>
+
+{% endblock %}

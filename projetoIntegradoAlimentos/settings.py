@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -38,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'aulas',
+    'contasAlunos'
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,7 +59,7 @@ ROOT_URLCONF = 'projetoIntegradoAlimentos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,3 +124,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+AUTH_USER_MODEL = 'contasAlunos.CustomUser'
+LOGIN_REDIRECT_URL = 'aulasList'
+LOGOUT_REDIRECT_URL = 'aulasList'
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")

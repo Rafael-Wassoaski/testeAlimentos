@@ -1,11 +1,12 @@
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 # Create your models here.
 
 
 class Aula(models.Model):
-	autor = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+	autor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	titulo = models.CharField(max_length = 80, default='')
 	ASSUNTOS = (
 		('ECA', 'ENTENDENDO A CONTAMINAÇÃO DOS ALIMENTOS'), 

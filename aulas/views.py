@@ -12,8 +12,8 @@ def criarNovaAula(request):
 			aula.autor = request.user
 			aula.video = "https://www.youtube.com/embed/"+aula.video
 			aula.save()
-			return redirect('aulasList')
-	return render(request, 'html/aulas/aula.html', {'formAula':formAula})
+			return redirect('aulas:aulasList')
+	return render(request, 'html/aulas/aulaForm.html', {'formAula':formAula})
 
 def aulasList(request):
 	aulas = Aula.objects.all()

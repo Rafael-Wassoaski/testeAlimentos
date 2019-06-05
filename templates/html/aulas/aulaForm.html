@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Nova Aula{% endblock %}
+{% block content %}
+
+ <form method="POST">
+ 	{% csrf_token %}
+ 	
+ 	{{formAula.as_p}}
+
+ 	<button type="submit">Enviar</button>
+
+ </form>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Consultas{% endblock %}
+{% block content %}
+<fieldset id="fieldset_consultas">
+  <legend> Consultas </legend>
+
+  <strong> Selecione o conteúdo desejado </strong>
+  <select>
+    <optgroup label ="Listar as"> </optgroup>
+      <option value = "filtro_nenhum_filtro" > Aulas </option>
+      <option value = "filtro_data_mais_antigo" > Notícias </option>
+  </select>
+  <button style="vertical-align: middle;" type="submit"><i class="material-icons">search</i></button>
+  <br>
+
+  <table>
+<tr>
+  <th>Nome</th>
+  <th>Descrição</th>
+  <th>Sei lá</th>
+</tr>
+  <tr>
+    <a href="#">
+      <td>O que é Tecnologia em Alimentos</td>
+      <td>A tecnologia em alimentos é...</td>
+      <td>Alguma coisa</td>
+    </a>
+  </tr>
+<tr>
+  <td>O que é ADS</td>
+  <td>Descrição resumida de ADS</td>
+  <td>Outra coisa</td>
+</tr>
+<tr>
+  <td>Aula 3</td>
+  <td>Descrição resumida da aula 2</td>
+  <td>Coisa</td>
+</tr>
+</table>
+
+</fieldset>
+{% endblock %}

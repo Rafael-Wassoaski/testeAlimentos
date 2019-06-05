@@ -12,6 +12,8 @@
   <link rel = "icon" href = "{% static '#' %}"/>
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+
   <title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -31,7 +33,7 @@
       <div class="dropdown-content-cadastros">
         <h2>LOGIN</h2>
 
-        <form method="POST" action="#">
+        <form method="POST" action="contas/login/">
           <input type="text" name="entrada_login_usuario" placeholder="Insira seu usuário" size="13"/>
           <br><br>
           <input type="password" name="entrada_login_senha" placeholder="Insira sua senha" size="13"/>
@@ -45,7 +47,7 @@
           <strong>
             Novo por aqui?
             <br>
-            <a href="#" class="botao_abrir_popups">Cadastre-se</a>
+            <a href="#" id="cadastro" class="botao_abrir_popups">Cadastre-se</a>
           </strong>
         </form>
 
@@ -252,6 +254,14 @@ window.onclick = function(event) {
     popupCadastros.style.display = "none";
   }
 }
+
+$(document).ready(function(){
+  $('#cadastro').click(function(){
+    $.get("contas:cadastrar", function(form, status){
+      console.log(status);
+    });
+  });
+});
 </script>
 
 </body>

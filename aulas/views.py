@@ -17,9 +17,12 @@ def criarNovaAula(request):
 
 def aulasList(request):
 	aulas = Aula.objects.all()
-	return render(request, 'base_index.html', {'aulas':aulas})
+	aulaaa = Aula.objects.get(pk=1)
+	return render(request, 'index.html', {'aulas':aulas, 'aulaaa':aulaaa})
 
 def aula(request, pk):
 	aula = Aula.objects.get(pk = pk)
-	return render(request, 'html/aulas/aula.html', {'aula':aula})
+	if request.user.is_authenticated():
+		return render(request, 'html/aulas/aula.html', {'aula':aula, 'aulaaa':aula})
 
+	return render(request, 'html/aulas/aula.html', {'aula':aula})

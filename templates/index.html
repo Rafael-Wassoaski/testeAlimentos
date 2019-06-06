@@ -1,0 +1,36 @@
+{% extends 'base_index.html' %}
+{% block title %}Página Inicial{% endblock %}
+{% block content %}
+<header>
+  {% load static %}
+  <a href=""><img id="display_imagem_header" src="{% static 'imagens/header.png' %}" alt = "Header." title = "Header da Página" /></a>
+</header>
+
+<div class="bloco_principal">
+
+  <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO 5 + OU - PRA LISTAR AS AULAS -->
+  
+  {% for aula in aulas %}
+  <div class="box_topico_aula">
+    <!-- <a href = "aula" target = "_blank"><img src="{% static 'imagens/em_construcao.png' %}" alt="#" class="imagem_aula_bloco_principal"></a> -->
+    <div class = "texto_titulo"><a href = "{% url 'aulas:aula' pk=aula.pk %}" target = "_blank" >{{aula.titulo}}</a></div>
+    <div class = "texto_resumo">{{aula.conteudo}}</div>
+  </div>
+
+  {% endfor %}
+
+
+  
+
+  <ol id="lista_proximas_paginas">
+    <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO [(TOTAL DE AULAS / TAMANHO DO FOR) =  NÚMERO DE PÁGINAS] -->
+    <li><a href="#">Próxima Página</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">...</a></li>
+    <li><a href="#">Última Página</a></li>
+  </ol>
+</div>
+
+{% endblock %}

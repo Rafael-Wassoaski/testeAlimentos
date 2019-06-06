@@ -6,13 +6,9 @@
  <form method="POST" enctype="multipart/form-data">
  	{% csrf_token %}
  	
- 	{{formAula.as_p}}
- 	<select id = "cursoId">
- 		{% for curso in cursos %}
- 			<option value="{{curso.pk}}">{{curso.nome}}</option>
- 		{% endfor %}
+ 	{{formCurso.as_p}}
 
- 	</select>
+ 	
 
  	<button type="submit">Enviar</button>
 

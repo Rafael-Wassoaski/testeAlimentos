@@ -1,28 +1,51 @@
 from django.shortcuts import render, redirect
-from .models import Aula
-from .forms import FormularioAula
+from .models import Aula, Curso
+from .forms import FormularioAula, FormularioCurso
+from contasAlunos.forms import CustomUserCreationForm
 
 #usar login required aqui
 def criarNovaAula(request):
 	formAula = FormularioAula()
+	cursos = Curso.objects.all()
+
 	if request.method == "POST":
-		aulaForm = FormularioAula(request.POST)
+		aulaForm = FormularioAula(request.POST, request.FILES)
 		if aulaForm.is_valid():
 			aula = aulaForm.save(commit = False)
 			aula.autor = request.user
 			aula.video = "https://www.youtube.com/embed/"+aula.video
+			# aula.curso = Curso.objects.get(pk=r)
+			print(aulaForm.cleaned_data['cursoId'])
 			aula.save()
 			return redirect('aulas:aulasList')
-	return render(request, 'html/aulas/aulaForm.html', {'formAula':formAula})
+	return render(request, 'html/aulas/aulaForm.html', {'formAula':formAula, 'cursos': cursos})
+
+
+
+
+def criarCurso(request):
+	formCurso = FormularioCurso()
+	if request.method == "POST":
+		cursoForm = FormularioCurso(request.POST)
+		if cursoForm.is_valid():
+			curso = cursoForm.save(commit = False)
+			curso.autor = request.user
+			curso.save()
+			return redirect('aulas:aulasList')
+	return render(request, 'html/aulas/cursoForm.html', {'formCurso':formCurso})
+
+
+
 
 def aulasList(request):
 	aulas = Aula.objects.all()
-	aulaaa = Aula.objects.get(pk=1)
-	return render(request, 'index.html', {'aulas':aulas, 'aulaaa':aulaaa})
+	return render(request, 'index.html', {'aulas':aulas })
+
+
+
 
 def aula(request, pk):
 	aula = Aula.objects.get(pk = pk)
-	if request.user.is_authenticated():
-		return render(request, 'html/aulas/aula.html', {'aula':aula, 'aulaaa':aula})
-
 	return render(request, 'html/aulas/aula.html', {'aula':aula})
+
+

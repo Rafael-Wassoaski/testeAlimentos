@@ -22,7 +22,7 @@
       <li><a href="../"><i class="material-icons">home</i> Início</a></li>
       <li class="dropdown"><a href="javascript:void(0)"><i class="material-icons">add_circle_outline</i> Cadastro</a>
         <div class="dropdown-content-cadastros">
-          <a href="#" class="botao_abrir_popups">Aula</a>
+          <a href="{% url 'aulas:criarNovaAula' %}" class="botao_abrir_popups">Aula</a>
           <a href="#" class="botao_abrir_popups">Notícia</a>
         </div>
       </li>
@@ -132,9 +132,9 @@
         <span class="close">&times;</span>
         <h2>Cadastrar Aula</h2>
       </div>
-      <div class="modal-body">
+      <!-- <div class="modal-body">
         <p>O form do cadastro de aula vai aqui</p>
-      </div>
+      </div> -->
       <div class="modal-footer">
         <input type="reset" name="botaoResetar" value="LIMPAR" class="botoes_form_cadastro"/>
         <input type="submit" name="botaoSalvar" value="SALVAR" class="botoes_form_cadastro"/>

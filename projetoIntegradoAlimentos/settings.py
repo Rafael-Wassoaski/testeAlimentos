@@ -128,8 +128,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 AUTH_USER_MODEL = 'contasAlunos.CustomUser'
 
-LOGIN_REDIRECT_URL = 'aulasList'
-LOGOUT_REDIRECT_URL = 'aulasList'
+LOGIN_REDIRECT_URL = 'aulas:aulasList'
+LOGOUT_REDIRECT_URL = 'aulas:aulasList'
+
+LOGIN_URL='login'
+
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")

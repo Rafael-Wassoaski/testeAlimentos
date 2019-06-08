@@ -3,7 +3,11 @@ from .models import Aula, Curso
 from .forms import FormularioAula, FormularioCurso
 from contasAlunos.forms import CustomUserCreationForm
 
+from django.contrib.auth.decorators import user_passes_test
 #usar login required aqui
+
+
+@user_passes_test(lambda u: u.is_superuser)
 def criarNovaAula(request):
 	formAula = FormularioAula()
 	cursos = Curso.objects.all()
@@ -23,6 +27,7 @@ def criarNovaAula(request):
 
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def criarCurso(request):
 	formCurso = FormularioCurso()
 	if request.method == "POST":

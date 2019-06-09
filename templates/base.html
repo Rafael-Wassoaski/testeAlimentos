@@ -23,7 +23,7 @@
       <li class="dropdown"><a href="javascript:void(0)"><i class="material-icons">add_circle_outline</i> Cadastro</a>
         <div class="dropdown-content-cadastros">
           <a href="{% url 'aulas:criarNovaAula' %}" class="botao_abrir_popups">Aula</a>
-          <a href="#" class="botao_abrir_popups">Notícia</a>
+          <a href="{% url 'noticias:criarNoticia' %}" class="botao_abrir_popups">Notícia</a>
         </div>
       </li>
       <li><a href="consultas"><i class="material-icons">format_list_bulleted</i> Consultas</a></li>
@@ -87,62 +87,43 @@
 
   </div>
   <aside>
-    <fieldset>
-      <legend> Notícias </legend>
+  <fieldset>
+    <legend> Notícias </legend>
 
-      <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO X PRA LISTAR AS NOTÍCIAS -->
-
-      <div class="noticia_content_aside">
-        <img src="{% static 'imagens/em_construcao.png' %}" alt="#" class="imagem_noticia_aside">
-        <a href="#" class="titulo_noticia_aside">Título Teste da Notícia</a>
-        <div class="resumo_noticia_aside">
-          Esse é um texto de exemplo de como seria o resumo de uma notícia dentro
-          do aside. Esse é um texto de exemplo de como seria o resumo de uma notícia dentro
-          do aside.
-        </div>
+    <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO X PRA LISTAR AS NOTÍCIAS -->
+    {% for noticia in noticias %}
+    <div class="noticia_content_aside">
+      {% if noticia.capa %}
+      <img src="{{noticia.capa.url}}" alt="#" class="imagem_noticia_aside">
+      {% endif %}
+      <a href="{% url 'noticias:lerNoticia' pk=noticia.pk %}" class="titulo_noticia_aside">{{noticia.titulo}}</a>
+      <div class="resumo_noticia_aside">
+        {{noticia.resumo}}
       </div>
+    </div>
+    {% endfor %}
 
-      <div class="noticia_content_aside">
-        <img src="{% static 'imagens/em_construcao.png' %}" alt="#" class="imagem_noticia_aside">
-        <a href="#" class="titulo_noticia_aside">Segundo Título de Teste da Notícia</a>
-        <div class="resumo_noticia_aside">
-          Esse é um texto de exemplo de como seria o resumo de uma notícia dentro
-          do aside. Esse é um texto de exemplo de como seria o resumo de uma notícia dentro
-          do aside.
-        </div>
-      </div>
-
-      <div class="noticia_content_aside">
-        <img src="{% static 'imagens/em_construcao.png' %}" alt="#" class="imagem_noticia_aside">
-        <a href="#" class="titulo_noticia_aside">Outro Título Teste da Notícia</a>
-        <div class="resumo_noticia_aside">
-          Esse é um texto de exemplo de como seria o resumo de uma notícia dentro
-          do aside. Esse é um texto de exemplo de como seria o resumo de uma notícia dentro
-          do aside.
-        </div>
-      </div>
-
-    </fieldset>
-  </aside>
+  </fieldset>
+</aside>
 
   <!-- [0] POPUPS DA OPÇÃO CADASTRO DO NAVBAR (Cadastro > Aula / Notícia) -->
-  <div id="popup_cadastrar_aula" class="modal">
+ <!--  <div id="popup_cadastrar_aula" class="modal">
     <div class="modal-content">
       <div class="modal-header">
         <span class="close">&times;</span>
         <h2>Cadastrar Aula</h2>
       </div>
-      <!-- <div class="modal-body">
+      <div class="modal-body">
         <p>O form do cadastro de aula vai aqui</p>
-      </div> -->
+      </div>
       <div class="modal-footer">
         <input type="reset" name="botaoResetar" value="LIMPAR" class="botoes_form_cadastro"/>
         <input type="submit" name="botaoSalvar" value="SALVAR" class="botoes_form_cadastro"/>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- [1] -->
-  <div id="popup_cadastrar_noticia" class="modal">
+  <!-- <div id="popup_cadastrar_noticia" class="modal">
     <div class="modal-content">
       <div class="modal-header">
         <span class="close">&times;</span>
@@ -156,10 +137,10 @@
         <input type="submit" name="botaoSalvar" value="SALVAR" class="botoes_form_cadastro"/>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- [2] POPUP PARA RECUPERAÇÃO DE SENHA (Icon Login > Esqueci minha senha) -->
-  <div id="popup_esqueci_senha" class="modal">
+ <!--  <div id="popup_esqueci_senha" class="modal">
     <div class="modal-content">
       <div class="modal-header">
         <span class="close">&times;</span>
@@ -178,10 +159,10 @@
 
       </form>
     </div>
-  </div>
+  </div> -->
 
   <!-- [3] POPUP PARA CADASTRO DE USUÁRIO (Icon Login > Cadastre-se) -->
-  <div id="popup_cadastre-se" class="modal">
+<!--   <div id="popup_cadastre-se" class="modal">
     <div class="modal-content">
       <div class="modal-header">
         <span class="close">&times;</span>
@@ -195,7 +176,7 @@
         <input type="submit" name="botaoCadastrar" value="CADASTRAR" class="botoes_form_cadastro"/>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- JAVASCRIPT DAS ANIMAÇÕES DO NAVBAR -> POPUPS E DROPDOWNS -->
   <script>

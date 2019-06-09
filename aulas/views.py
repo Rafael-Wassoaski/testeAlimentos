@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Aula, Curso
 from .forms import FormularioAula, FormularioCurso
 from contasAlunos.forms import CustomUserCreationForm
+import noticias.views
 
 from django.contrib.auth.decorators import user_passes_test
 #usar login required aqui
@@ -44,7 +45,9 @@ def criarCurso(request):
 
 def aulasList(request):
 	aulas = Aula.objects.all()
-	return render(request, 'index.html', {'aulas':aulas })
+	noticiasList = noticias.views.noticiasList()
+	print(noticiasList)
+	return render(request, 'index.html', {'aulas':aulas, 'noticias':noticiasList })
 
 
 

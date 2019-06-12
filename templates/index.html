@@ -11,18 +11,19 @@
 <div class="bloco_principal">
 
   <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO 5 + OU - PRA LISTAR AS AULAS -->
-  
+  {% if not aulas %}
+  <h3 class="info_nenhuma_aula_cadastrada">NÃO HÁ NENHUMA AULA CADASTRADA NO MOMENTO.</h3>
+  {% else %}
   {% for aula in aulas %}
   <div class="box_topico_aula">
     <a href = "{% url 'aulas:aula' pk=aula.pk %}" target = "_blank"><img src="{{aula.capa.url}}" alt="{{aula.titulo}}" class="imagem_aula_bloco_principal"/></a>
     <div class = "texto_titulo"><a href = "{% url 'aulas:aula' pk=aula.pk %}" target = "_blank" >{{aula.titulo}}</a></div>
-    <div class = "texto_resumo">{{aula.conteudo}}</div>
+    <div class = "texto_resumo">{{aula.resumo}}</div>
   </div>
 
   {% endfor %}
 
 
-  
 
   <ol id="lista_proximas_paginas">
     <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO [(TOTAL DE AULAS / TAMANHO DO FOR) =  NÚMERO DE PÁGINAS] -->
@@ -33,6 +34,7 @@
     <li><a href="#">...</a></li>
     <li><a href="#">Última Página</a></li>
   </ol>
+    {% endif %}
 </div>
 
 {% endblock %}

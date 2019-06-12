@@ -18,20 +18,24 @@
 <body>
   <nav>
     <ul>
-      <li><a href="../"><i class="material-icons">home</i> Início</a></li>
+      <li><a href="../../../"><i class="material-icons">home</i> Início</a></li>
+      {% if user.is_authenticated and request.user.is_superuser %}
       <li class="dropdown"><a href="javascript:void(0)"><i class="material-icons">add_circle_outline</i> Cadastro</a>
         <div class="dropdown-content-cadastros">
-          <a href="{% url 'aulas:criarNovaAula' %}" class="botao_abrir_popups">Aula</a>
-          <a href="{% url 'noticias:criarNoticia' %}" class="botao_abrir_popups">Notícia</a>
+          <a href="{% url 'aulas:criarNovaAula' %}">Aula</a>
+          <a href="{% url 'noticias:criarNoticia' %}">Notícia</a>
+          <a href="{% url 'aulas:criarCurso' %}">Curso</a>
         </div>
       </li>
-      <li><a href="consultas"><i class="material-icons">format_list_bulleted</i> Consultas</a></li>
+      {% endif %}
+      <li><a href="../../../consultas"><i class="material-icons">format_list_bulleted</i> Consultas</a></li>
     </li>
+    {% if not user.is_authenticated %}
     <li class="dropdown botao_login"><a href="javascript:void(0)"><i class="material-icons">account_circle</i></a>
       <div class="dropdown-content-cadastros">
         <h2>LOGIN</h2>
 
-        <form method="POST" action="#">
+        <form method="" action="contas/login/?next=/index/">
           <input type="text" name="entrada_login_usuario" placeholder="Insira seu usuário" size="13"/>
           <br><br>
           <input type="password" name="entrada_login_senha" placeholder="Insira sua senha" size="13"/>
@@ -45,14 +49,15 @@
           <strong>
             Novo por aqui?
             <br>
-            <a href="#" class="botao_abrir_popups">Cadastre-se</a>
+            <a href="{% url 'contas:cadastrar' %}" class="botao_abrir_popups">Cadastre-se</a>
           </strong>
         </form>
 
       </div>
     </li>
-    <li style="float:right;"><a class="botao_ajuda" href="ajuda"><i class="material-icons">help_outline</i> Ajuda</a></li>
-    <li class="li_entrada_pesquisa">
+    {% endif %}
+    <li style="float:right;"><a class="botao_ajuda" href="../../../ajuda"><i class="material-icons">help_outline</i> Ajuda</a></li>
+     <li class="li_entrada_pesquisa">
       <b>
         <input type="text" name="entrada_pesquisa" placeholder="Pesquisar"/>
         <button type="submit"><i class="material-icons">search</i></button>
@@ -74,6 +79,13 @@
         </select>
       </b>
     </li>
+
+
+    {% if user.is_authenticated %}
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+    {% endif %}
+
+    
   </ul>
 </nav>
 <br>
@@ -104,41 +116,8 @@
   </fieldset>
 </aside>
 
-<!-- [0] POPUPS DA OPÇÃO CADASTRO DO NAVBAR (Cadastro > Aula / Notícia) -->
-<!-- <div id="popup_cadastrar_aula" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2><a href="{% url 'aulas:criarNovaAula' %}">Cadastrar Aula</a></h2>
-    </div> 
-    <div class="modal-body">
-      <p>O form do cadastro de aula vai aqui</p>
-    </div> 
-    <div class="modal-footer">
-      <input type="reset" name="botaoResetar" value="LIMPAR" class="botoes_form_cadastro"/>
-      <input type="submit" name="botaoSalvar" value="SALVAR" class="botoes_form_cadastro"/>
-    </div>
-  </div>
-</div> -->
-<!-- [1] -->
-<!-- <div id="popup_cadastrar_noticia" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2>Cadastrar Notícia</h2>
-    </div>
-    <div class="modal-body">
-      <p>O form do cadastro de noticia vai aqui</p>
-    </div>
-    <div class="modal-footer">
-      <input type="reset" name="botaoResetar" value="LIMPAR" class="botoes_form_cadastro"/>
-      <input type="submit" name="botaoSalvar" value="SALVAR" class="botoes_form_cadastro"/>
-    </div>
-  </div>
-</div> -->
-
 <!-- [2] POPUP PARA RECUPERAÇÃO DE SENHA (Icon Login > Esqueci minha senha) -->
-<!-- <div id="popup_esqueci_senha" class="modal">
+<div id="popup_esqueci_senha" class="modal">
   <div class="modal-content">
     <div class="modal-header">
       <span class="close">&times;</span>
@@ -157,10 +136,10 @@
 
     </form>
   </div>
-</div> -->
+</div>
 
 <!-- [3] POPUP PARA CADASTRO DE USUÁRIO (Icon Login > Cadastre-se) -->
-<!-- <div id="popup_cadastre-se" class="modal">
+<div id="popup_cadastre-se" class="modal">
   <div class="modal-content">
     <div class="modal-header">
       <span class="close">&times;</span>
@@ -174,7 +153,7 @@
       <input type="submit" name="botaoCadastrar" value="CADASTRAR" class="botoes_form_cadastro"/>
     </div>
   </div>
-</div> -->
+</div>
 
 <!-- JAVASCRIPT DAS ANIMAÇÕES DO NAVBAR -> POPUPS E DROPDOWNS -->
 <script>
@@ -196,14 +175,6 @@ botao_abrir_popups[1].onclick = function() {
   popupCadastros[1].style.display = "block";
 }
 
-botao_abrir_popups[2].onclick = function() {
-  popupCadastros[2].style.display = "block";
-}
-
-botao_abrir_popups[3].onclick = function() {
-  popupCadastros[3].style.display = "block";
-}
-
 // When the user clicks on <span> (x), close the modal
 span[0].onclick = function() {
   popupCadastros[0].style.display = "none";
@@ -211,14 +182,6 @@ span[0].onclick = function() {
 
 span[1].onclick = function() {
   popupCadastros[1].style.display = "none";
-}
-
-span[2].onclick = function() {
-  popupCadastros[2].style.display = "none";
-}
-
-span[3].onclick = function() {
-  popupCadastros[3].style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it

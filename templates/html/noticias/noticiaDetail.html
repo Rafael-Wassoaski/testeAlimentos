@@ -3,12 +3,13 @@
 {% block title %}{{aula.titulo}}{% endblock %}
 {% block content %}
 
-{% if noticia.capa %}
-<img src="{{noticia.capa.url}}" alt="#" class="">
-
-{% endif %}
 <h2>{{noticia.Titulo}}</h2>
 <h3>{{noticia.subtitulo}}</h3>
+
+{% if noticia.capa %}
+<img src="{{noticia.capa.url}}" alt="#" class="imagem_noticia_detail">
+
+{% endif %}
 
 <p>{{noticia.noticia}}</p>
 <br>

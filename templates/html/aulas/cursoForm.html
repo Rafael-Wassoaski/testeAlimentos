@@ -2,16 +2,18 @@
 
 {% block title %}Nova Aula{% endblock %}
 {% block content %}
+<fieldset id="fieldset_templates">
+  <legend> Cadastrar Novo Curso </legend>
 
  <form method="POST" enctype="multipart/form-data">
  	{% csrf_token %}
- 	
+
  	{{formCurso.as_p}}
 
- 	
 
- 	<button type="submit">Enviar</button>
+
+   <input type="submit" value="CADASTRAR" class="botoes_form_cadastro"/>
 
  </form>
-
+</fieldset>
 {% endblock %}

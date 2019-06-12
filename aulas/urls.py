@@ -10,8 +10,8 @@ urlpatterns = [
     path('criarCurso/', views.criarCurso, name = 'criarCurso'),
     # path('', views.index, name='index'),
     # path('aula', views.aula, name='aula'),
-    # path('ajuda', views.ajuda, name='ajuda'),
-    # path('consultas', views.consultas, name='consultas'),
+    path('ajuda', views.ajuda, name='ajuda'),
+    path('consultas', views.consultas, name='consultas'),
     # path('recuperarsenha', views.recuperarsenha, name='recuperarsenha'),
 
 ]

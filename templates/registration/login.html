@@ -3,10 +3,17 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<h2>Login</h2>
+<fieldset class="fieldset_templates">
+  <legend> Iniciar Sessão </legend>
+
+<div class="fundo_login">
+
+<h2>LOGIN</h2>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">Login</button>
+  <input type="submit" value="ENTRAR" class="botoes_form_cadastro"/>
 </form>
+</div>
+</fieldset>
 {% endblock %}

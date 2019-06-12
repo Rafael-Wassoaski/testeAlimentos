@@ -2,20 +2,17 @@
 
 {% block title %}Nova Aula{% endblock %}
 {% block content %}
+<fieldset id="fieldset_templates">
+  <legend> Nova Aula </legend>
 
  <form method="POST" enctype="multipart/form-data">
  	{% csrf_token %}
- 	
+
  	{{formAula.as_p}}
- 	<select id = "cursoId">
- 		{% for curso in cursos %}
- 			<option value="{{curso.pk}}">{{curso.nome}}</option>
- 		{% endfor %}
+ 	{{formAula.curso.nome}}
 
- 	</select>
-
- 	<button type="submit">Enviar</button>
-
+  <input type="submit" value="CADASTRAR" class="botoes_form_cadastro"/>
  </form>
+   </fieldset>
 
 {% endblock %}

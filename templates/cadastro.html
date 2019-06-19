@@ -3,10 +3,12 @@
 {% block title %}Cadastrar{% endblock %}
 
 {% block content %}
-  <h2>Cadatro</h2>
+  <fieldset class="fieldset_templates">
+  <legend> Cadastro de Usuário </legend>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Cadastrar</button>
+    <input type="submit" value="CADASTRAR" class="botoes_form_cadastro"/>
   </form>
+ </fieldset> 
 {% endblock %}

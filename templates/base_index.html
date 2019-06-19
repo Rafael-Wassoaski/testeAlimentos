@@ -49,7 +49,7 @@
           <strong>
             Novo por aqui?
             <br>
-            <a href="{% url 'contas:cadastrar' %}" class="botao_abrir_popups">Cadastre-se</a>
+            <a href="{% url 'contas:cadastrar' %}">Cadastre-se</a>
           </strong>
         </form>
 
@@ -138,23 +138,6 @@
   </div>
 </div>
 
-<!-- [3] POPUP PARA CADASTRO DE USUÁRIO (Icon Login > Cadastre-se) -->
-<div id="popup_cadastre-se" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2>Cadastre-se</h2>
-    </div>
-    <div class="modal-body">
-      <p>O form do cadastro do usuário comum vai aqui</p>
-    </div>
-    <div class="modal-footer">
-      <input type="reset" name="botaoResetar" value="LIMPAR" class="botoes_form_cadastro"/>
-      <input type="submit" name="botaoCadastrar" value="CADASTRAR" class="botoes_form_cadastro"/>
-    </div>
-  </div>
-</div>
-
 <!-- JAVASCRIPT DAS ANIMAÇÕES DO NAVBAR -> POPUPS E DROPDOWNS -->
 <script>
 // Get the modal
@@ -171,17 +154,9 @@ botao_abrir_popups[0].onclick = function() {
   popupCadastros[0].style.display = "block";
 }
 
-botao_abrir_popups[1].onclick = function() {
-  popupCadastros[1].style.display = "block";
-}
-
 // When the user clicks on <span> (x), close the modal
 span[0].onclick = function() {
   popupCadastros[0].style.display = "none";
-}
-
-span[1].onclick = function() {
-  popupCadastros[1].style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it

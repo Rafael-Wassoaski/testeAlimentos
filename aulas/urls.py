@@ -13,5 +13,7 @@ urlpatterns = [
     path('ajuda', views.ajuda, name='ajuda'),
     path('consultas', views.consultas, name='consultas'),
     # path('recuperarsenha', views.recuperarsenha, name='recuperarsenha'),
+    path('cadastro/<int:pkCurso>', views.entrarNoCurso, name = 'entrarNoCurso'),
+    path('cursosList/', views.cursosList, name = 'cursosList')
 
 ]

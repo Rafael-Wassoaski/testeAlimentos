@@ -1,13 +1,26 @@
 from django.shortcuts import render, redirect
-from .models import Aula, Curso
+from .models import Aula, Curso, cursoAluno
 from .forms import FormularioAula, FormularioCurso
 from contasAlunos.forms import CustomUserCreationForm
 import noticias.views
 from django.utils import timezone
 
-from django.contrib.auth.decorators import user_passes_test
+
+from django.contrib.auth.decorators import user_passes_test, login_required
 #usar login required aqui
 
+@login_required
+def entrarNoCurso(request, pkCurso):
+	cursoCadastro = cursoAluno()
+	cursoCadastro.curso = Curso.objects.get(pk = pkCurso)
+	cursoCadastro.aluno = request.user
+	cursoCadastro.save()
+	return redirect('aulas:aulasList')
+
+
+def cursosList(request):
+	cursos = Curso.objects.all()
+	return render(request, 'html/aulas/cursosList.html', {'cursos':cursos, })
 
 @user_passes_test(lambda u: u.is_superuser)
 def criarNovaAula(request):
@@ -54,9 +67,16 @@ def aulasList(request):
 
 
 def aula(request, pk):
-	aula = Aula.objects.get(pk = pk)
-	noticiasList = noticias.views.noticiasList()
-	return render(request, 'html/aulas/aula.html', {'aula':aula, 'noticias':noticiasList })
+
+	aluno = cursoAluno.objects.get(aluno = request.user)
+
+	if aluno.aula > 0:
+
+		aula = Aula.objects.get(pk = pk)	
+		noticiasList = noticias.views.noticiasList()
+		return render(request, 'html/aulas/aula.html', {'aula':aula, 'noticias':noticiasList })
+	else:
+		return redirect()
 
 def ajuda(request):
 	noticiasList = noticias.views.noticiasList()

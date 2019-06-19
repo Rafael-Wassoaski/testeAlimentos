@@ -401,7 +401,7 @@ li a i .dropdown {
 }
 
 /* FIELDSETS DE ALGUNS TEMPLATES */
-#fieldset_templates {
+.fieldset_templates {
   text-align: center;
   min-width: 780px;
   display: block;

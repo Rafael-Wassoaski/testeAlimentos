@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Cursos{% endblock %}
+{% block content %}
+
+  {%for curso in cursos%}
+     <a href="{% url 'aulas:entrarNoCurso' pkCurso=curso.pk %}">{{curso.nome}}</a>
+
+  {%endfor%}
+
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Nova Quiz{% endblock %}
+{% block content %}
+<fieldset id="fieldset_templates">
+  <legend> Nova Quiz </legend>
+
+ <form method="POST" enctype="multipart/form-data">
+ 	{% csrf_token %}
+
+ 	<label>Pergunta 1
+ 		<input type="text" name="pergunta1">
+ 	</label>
+
+ 	<input type="radio" name="resposta1" value="True">Verdadeiro
+ 	<input type="radio" name="resposta1" value="False">Falso
+
+ 	<br/>
+	<br/>
+
+ 	<label>Pergunta 2
+ 		<input type="text" name="pergunta2", id="pergunta2">
+ 	</label>
+
+ 	<input type="radio" name="resposta2" value="True">Verdadeiro
+ 	<input type="radio" name="resposta2" value="False">Falso
+
+ 	<br/>
+	<br/>
+
+ 	<label>Pergunta 3
+ 		<input type="text" name="pergunta3", id="pergunta3">
+ 	</label>
+
+ 	<input type="radio" name="resposta3" value="True">Verdadeiro
+ 	<input type="radio" name="resposta3" value="False">Falso
+
+ 	<br/>
+	<br/>
+
+ 	<label>Pergunta 4
+ 		<input type="text" name="pergunta4", id="pergunta4">
+ 	</label>
+ 	
+ 	<input type="radio" name="resposta4" value="True">Verdadeiro
+ 	<input type="radio" name="resposta4" value="False">Falso
+
+
+<br/>
+	<br/>
+
+ 	<label>Pergunta 5
+ 		<input type="text" name="pergunta5", id="pergunta5">
+ 	</label>
+ 	
+ 	<input type="radio" name="resposta5" value="True">Verdadeiro
+ 	<input type="radio" name="resposta5" value="False">Falso
+
+
+
+
+
+  <input type="submit" value="CADASTRAR" class="botoes_form_cadastro"/>
+ </form>
+   </fieldset>
+
+{% endblock %}

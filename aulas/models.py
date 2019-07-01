@@ -6,6 +6,7 @@ from django.conf import settings
 class Curso(models.Model):
 	autor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	nome = models.CharField(max_length = 100, default='', blank = False)
+	numAulas = models.IntegerField(default = 0)
 
 	def __str__(self):
 		return '{}'.format(self.nome)
@@ -21,6 +22,7 @@ class Aula(models.Model):
 	ativo = models.BooleanField(default=True)
 	resumo = models.CharField(max_length = 1000, default='', blank = False)
 	capa = models.ImageField(upload_to = 'images/', blank = True, default = None)
+	idAula = models.IntegerField();
 
 	def published_date(self):
 		published_date = timezone.now()

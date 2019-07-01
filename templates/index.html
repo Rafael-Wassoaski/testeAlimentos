@@ -16,8 +16,14 @@
   {% else %}
   {% for aula in aulas %}
   <div class="box_topico_aula">
-    <a href = "{% url 'aulas:aula' pk=aula.pk %}" target = "_blank"><img src="{{aula.capa.url}}" alt="{{aula.titulo}}" class="imagem_aula_bloco_principal"/></a>
+    <a href = "{% url 'aulas:aula' pk=aula.pk %}" target = "_blank">
+      {% if aula.capa %}
+      <img src="{{aula.capa.url}}" alt="{{aula.titulo}}" class="imagem_aula_bloco_principal"/>
+      {%endif%}
+
+   
     <div class = "texto_titulo"><a href = "{% url 'aulas:aula' pk=aula.pk %}" target = "_blank" >{{aula.titulo}}</a></div>
+     </a>
     <div class = "texto_resumo">{{aula.resumo}}</div>
   </div>
 

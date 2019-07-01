@@ -28,6 +28,7 @@ urlpatterns = [
     path('contas/logout/', views.LogoutView.as_view(), name='logout'),
     path('contas/', include('django.contrib.auth.urls')),
     path('noticias/', include('noticias.urls')),
+    path('quiz/', include('quiz.urls'))
     
 ]
 

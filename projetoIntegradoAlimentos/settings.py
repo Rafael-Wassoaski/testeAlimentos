@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'aulas',
     'contasAlunos',
     'noticias',
+    'quiz',
 ]
 
 

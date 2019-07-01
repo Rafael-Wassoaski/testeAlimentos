@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Nova Quiz{% endblock %}
+{% block content %}
+<fieldset id="fieldset_templates">
+  <legend> Nova Quiz </legend>
+
+ <form method="POST" enctype="multipart/form-data">
+ 	{% csrf_token %}
+
+
+
+	{% for pergunta in perguntas %}
+	<label>Pergunta {{ forloop.counter }}
+ 		<p>{{pergunta.pergunta}}</p>
+	
+ 	</label>
+
+ 	<input type="radio" name="resposta{{ forloop.counter }}" value=True>Verdadeiro
+ 	<input type="radio" name="resposta{{ forloop.counter }}" value=False>Falso
+
+ 	<br/>
+	<br/>
+
+	{% endfor %}
+
+ 	
+
+
+
+  <input type="submit" value="CADASTRAR" class="botoes_form_cadastro"/>
+ </form>
+   </fieldset>
+
+{% endblock %}

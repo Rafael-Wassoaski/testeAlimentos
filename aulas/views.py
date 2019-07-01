@@ -11,11 +11,19 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 
 @login_required
 def entrarNoCurso(request, pkCurso):
-	cursoCadastro = cursoAluno()
-	cursoCadastro.curso = Curso.objects.get(pk = pkCurso)
-	cursoCadastro.aluno = request.user
-	cursoCadastro.save()
-	return redirect('aulas:aulasList')
+
+	curso = Curso.objects.get(pk = pkCurso)
+
+	try:
+		cursoCadastro = cursoAluno.objects.get(aluno = request.user, curso = curso)
+		return redirect("aulas:aulasList")
+	except cursoAluno.DoesNotExist:
+		
+		cursoCadastro = cursoAluno()
+		cursoCadastro.curso = curso
+		cursoCadastro.aluno = request.user
+		cursoCadastro.save()
+		return redirect('aulas:aulasList')
 
 
 def cursosList(request):
@@ -34,8 +42,13 @@ def criarNovaAula(request):
 			aula.autor = request.user
 			aula.video = "https://www.youtube.com/embed/"+aula.video
 			aula.data = timezone.now()
+			curso = Curso.objects.get( pk = formAula.cleaned_data['curso'].pk)
+			aula.idAula = curso.numAulas
+			print(aula.idAula)
+			curso.numAulas = curso.numAulas + 1
+			curso.save()
 			aula.save()
-			return redirect('aulas:aulasList')
+			return redirect('quiz:newQuiz', aula.pk)
 	else:
 		formAula = FormularioAula()
 		formAula.fields["curso"].queryset = Curso.objects.all()
@@ -67,16 +80,22 @@ def aulasList(request):
 
 
 def aula(request, pk):
+	aula = Aula.objects.get(pk = pk)
+	curso = Curso.objects.get(pk = aula.curso.pk)
+	try:
+		aluno = cursoAluno.objects.get(aluno = request.user, curso = curso)
+	except cursoAluno.DoesNotExist:
+		return redirect("aulas:cursosList")
 
-	aluno = cursoAluno.objects.get(aluno = request.user)
-
-	if aluno.aula > 0:
-
-		aula = Aula.objects.get(pk = pk)	
+	
+	
+	if aluno.aula >= aula.idAula:	
 		noticiasList = noticias.views.noticiasList()
 		return render(request, 'html/aulas/aula.html', {'aula':aula, 'noticias':noticiasList })
 	else:
-		return redirect()
+		return redirect("aulas:aulasList")
+	
+
 
 def ajuda(request):
 	noticiasList = noticias.views.noticiasList()

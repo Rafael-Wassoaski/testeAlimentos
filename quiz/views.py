@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .models import Quiz, Pergunta
-from aulas.models import Aula
+from aulas.models import Aula, Curso, cursoAluno
 
 from django.contrib.auth.decorators import user_passes_test
 
@@ -67,17 +67,30 @@ def fazerQuiz(request, pk):
 			request.POST.getlist('resposta5')]
 
 		print(listaPerguntas)
-
+		pontos = 0;
 		listaRespostas = []
-		for resposta in listaPerguntas:
-			print("a")
+		for  pergunta in listaPerguntas:
+			
+			if pergunta == ['True']:
+				listaRespostas.append(True)
+			else:
+				listaRespostas.append(False)
 
-		print(listaRespostas)
+		for (resposta, pergunta) in zip (listaRespostas, perguntas):
+			
+			if resposta == pergunta.resposta:
+				pontos = pontos + 1
 
 
-
-
-
-
+		if pontos >= 3:
+			aula = Aula.objects.get(pk = pk)
+			curso = Curso.objects.get(pk = aula.curso.pk)
+			try:
+				aluno = cursoAluno.objects.get(aluno = request.user, curso = curso)
+				aluno.aula = aluno.aula + 1
+				aluno.save()
+				return redirect("aulas:aulasList")
+			except cursoAluno.DoesNotExist:
+				return redirect("aulas:aula",aula.pk )
 
 	return render(request, 'html/quiz/responderQuiz.html', {'perguntas': perguntas})

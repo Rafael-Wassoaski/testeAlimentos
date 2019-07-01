@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .models import Quiz, Pergunta
 from aulas.models import Aula
+import itertools
 
 from django.contrib.auth.decorators import user_passes_test
 
@@ -59,25 +60,24 @@ def fazerQuiz(request, pk):
 
 	if request.method == "POST":
 
-		listaPerguntas = [
-			request.POST.getlist('resposta1'), 
-			request.POST.getlist('resposta2'),
-			request.POST.getlist('resposta3'), 
-			request.POST.getlist('resposta4'), 
-			request.POST.getlist('resposta5')]
+	
 
-		print(listaPerguntas)
+		resposta1 = request.POST.getlist('resposta1')
+		resposta2 = request.POST.getlist('resposta2')
+		resposta3 = request.POST.getlist('resposta3')
+		resposta4 = request.POST.getlist('resposta4')
+		resposta5 = request.POST.getlist('resposta5')
 
 		listaRespostas = []
 		for resposta in listaPerguntas:
-			print("a")
+			if resposta == ['True']:
+				listaRespostas.append(True)
+			else:
+				listaRespostas.append(False)
 
-		print(listaRespostas)
-
-
-
-
-
-
+		
+		for respota , pergunta in itertools.product(listaRespostas, perguntas):
+			print(resposta)
+			print(pergunta.pergunta)
 
 	return render(request, 'html/quiz/responderQuiz.html', {'perguntas': perguntas})

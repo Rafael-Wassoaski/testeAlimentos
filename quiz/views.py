@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .models import Quiz, Pergunta
-from aulas.models import Aula
+
 import itertools
+
+from aulas.models import Aula, Curso, cursoAluno
+
+from django.contrib import messages
 
 from django.contrib.auth.decorators import user_passes_test
 
@@ -57,27 +61,44 @@ def fazerQuiz(request, pk):
 	aulaPk = Aula.objects.get(pk = pk)
 	quizDaAula = Quiz.objects.get(aula = aulaPk)
 	perguntas = Pergunta.objects.filter(quiz = quizDaAula)
+	aula = Aula.objects.get(pk = pk)
+	curso = Curso.objects.get(pk = aula.curso.pk)
+	try:
+		aluno = cursoAluno.objects.get(aluno = request.user, curso = curso)
+	except cursoAluno.DoesNotExist:
+		return redirect("aulas:aula",aula.pk )
+
+	if aluno.aula != aula.idAula:
+		messages.success(request, 'Você não pode refazer este quiz')
+		return redirect("aulas:aulasList")
 
 	if request.method == "POST":
+		listaPerguntas = [
+			request.POST.getlist('resposta1'), 
+			request.POST.getlist('resposta2'),
+			request.POST.getlist('resposta3'), 
+			request.POST.getlist('resposta4'), 
+			request.POST.getlist('resposta5')]
 
-	
-
-		resposta1 = request.POST.getlist('resposta1')
-		resposta2 = request.POST.getlist('resposta2')
-		resposta3 = request.POST.getlist('resposta3')
-		resposta4 = request.POST.getlist('resposta4')
-		resposta5 = request.POST.getlist('resposta5')
-
+		pontos = 0;
 		listaRespostas = []
-		for resposta in listaPerguntas:
-			if resposta == ['True']:
+		for  pergunta in listaPerguntas:
+			if pergunta == ['True']:
 				listaRespostas.append(True)
 			else:
 				listaRespostas.append(False)
 
-		
-		for respota , pergunta in itertools.product(listaRespostas, perguntas):
-			print(resposta)
-			print(pergunta.pergunta)
+		for (resposta, pergunta) in zip (listaRespostas, perguntas):
+			print(pergunta.resposta)
+			if resposta == pergunta.resposta:
+				pontos = pontos + 1
 
+		if pontos >= 3:	
+			aluno.aula = aluno.aula + 1
+			aluno.save()
+			messages.success(request, 'Você fez {} pontos, pode seguir para a próxima aula'.format(pontos))
+			return redirect("aulas:aula",aula.pk )
+		else:
+			messages.success(request, 'Você fez {} pontos, não pode seguir para a próxima aula'.format(pontos))
+			return redirect("aulas:aulasList")
 	return render(request, 'html/quiz/responderQuiz.html', {'perguntas': perguntas})

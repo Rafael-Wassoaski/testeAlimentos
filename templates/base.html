@@ -90,9 +90,19 @@
     
   </ul>
 </nav>
+ {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   <br>
 
   <div class="bloco_principal_aulas">
+
+   
+    
     {% block content %}
     {% endblock %}
 

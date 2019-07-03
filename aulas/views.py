@@ -4,6 +4,7 @@ from .forms import FormularioAula, FormularioCurso
 from contasAlunos.forms import CustomUserCreationForm
 import noticias.views
 from django.utils import timezone
+from django.contrib import messages
 
 
 from django.contrib.auth.decorators import user_passes_test, login_required
@@ -16,6 +17,7 @@ def entrarNoCurso(request, pkCurso):
 
 	try:
 		cursoCadastro = cursoAluno.objects.get(aluno = request.user, curso = curso)
+		messages.error(request, 'Você já está cadastrado neste curso.')
 		return redirect("aulas:aulasList")
 	except cursoAluno.DoesNotExist:
 		
@@ -23,6 +25,7 @@ def entrarNoCurso(request, pkCurso):
 		cursoCadastro.curso = curso
 		cursoCadastro.aluno = request.user
 		cursoCadastro.save()
+		messages.success(request, 'Você foi cadastrado no curso.')
 		return redirect('aulas:aulasList')
 
 
@@ -48,7 +51,10 @@ def criarNovaAula(request):
 			curso.numAulas = curso.numAulas + 1
 			curso.save()
 			aula.save()
+			messages.success(request, 'Aula cadastrada com sucesso.')
 			return redirect('quiz:newQuiz', aula.pk)
+		else:
+			messages.error(request, 'Não foi possível cadastrar aula.')
 	else:
 		formAula = FormularioAula()
 		formAula.fields["curso"].queryset = Curso.objects.all()
@@ -66,7 +72,10 @@ def criarCurso(request):
 			curso = cursoForm.save(commit = False)
 			curso.autor = request.user
 			curso.save()
+			messages.success(request, 'Curso criado com sucesso.')
 			return redirect('aulas:aulasList')
+		else:
+			messages.error(request, 'Não foi possível criar o curso.')
 	return render(request, 'html/aulas/cursoForm.html', {'formCurso':formCurso})
 
 

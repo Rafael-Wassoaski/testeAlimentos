@@ -14,6 +14,7 @@ urlpatterns = [
     path('consultas', views.consultas, name='consultas'),
     # path('recuperarsenha', views.recuperarsenha, name='recuperarsenha'),
     path('cadastro/<int:pkCurso>', views.entrarNoCurso, name = 'entrarNoCurso'),
-    path('cursosList/', views.cursosList, name = 'cursosList')
+    path('cursosList/', views.cursosList, name = 'cursosList'),
+    path('pesquisa/', views.pesquisa, name = 'pesquisa')
 
 ]

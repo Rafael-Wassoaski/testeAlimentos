@@ -2,13 +2,39 @@
 
 {% block title %}Nova Notícia{% endblock %}
 {% block content %}
-<fieldset id="fieldset_templates">
-  <legend> Nova Notícia </legend>
+
+<fieldset class="fieldset_templates">
+  <div class="header_para_fieldsets">
+    <h3>CADASTRAR NOVA NOTÍCIA</h3>
+  </div>
 
  <form method="POST" enctype="multipart/form-data">
  	{% csrf_token %}
 
- 	{{formNoticia.as_p}}
+  <label for="titulo">TÍTULO</label>
+  <div id="titulo">
+    {{ formNoticia.titulo }}
+  </div>
+
+  <label for="subtitulo">SUBTÍTULO</label>
+  <div id="subtitulo">
+    {{ formNoticia.subtitulo }}
+  </div>
+
+  <label for="conteudo">CONTEÚDO DA NOTÍCIA</label>
+  <div id="conteudo">
+    {{ formNoticia.noticia }}
+  </div>
+
+  <label for="resumo">RESUMO</label>
+  <div id="resumo">
+    {{ formNoticia.resumo }}
+  </div>
+
+  <label for="capa">FOTO DE APRESENTAÇÃO</label>
+  <div id="capa">
+    {{ formNoticia.capa }}
+  </div>
 
   <input type="submit" value="CADASTRAR" class="botoes_form_cadastro"/>
 

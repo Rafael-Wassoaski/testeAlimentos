@@ -9,7 +9,7 @@
   <meta name = "robots" content = "index, follow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel = "icon" href = "{% static '#' %}"/>
+  <link rel = "icon" href = "{% static 'imagens/icon.svg' %}"/>
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
   <title>{% block title %}{% endblock %}</title>
@@ -20,7 +20,7 @@
   <nav>
     <ul>
       <li><a href="../../../"><i class="material-icons">home</i> Início</a></li>
-      {% if user.is_authenticated and request.user.is_superuser %}
+      {% if request.user.is_superuser %}
       <li class="dropdown"><a href="javascript:void(0)"><i class="material-icons">add_circle_outline</i> Cadastro</a>
         <div class="dropdown-content-cadastros">
           <a href="{% url 'aulas:criarNovaAula' %}">Aula</a>
@@ -29,17 +29,19 @@
         </div>
       </li>
       {% endif %}
-      <li><a href="../../../consultas"><i class="material-icons">format_list_bulleted</i> Consultas</a></li>
+      <li><a href="{%url 'aulas:cursosList'%}"><i class="material-icons">video_library</i> Cursos </a></li>
+      <!-- <li><a href="../../../consultas"><i class="material-icons">format_list_bulleted</i> Consultas</a></li> -->
     </li>
     {% if not user.is_authenticated %}
     <li class="dropdown botao_login"><a href="javascript:void(0)"><i class="material-icons">account_circle</i></a>
       <div class="dropdown-content-cadastros">
         <h2>LOGIN</h2>
 
-        <form method="" action="contas/login/?next=/index/">
-          <input type="text" name="entrada_login_usuario" placeholder="Insira seu usuário" size="13"/>
+        <form method="post" action="contas/login/">
+          {% csrf_token %}
+          <input type="text"  id="id_username" name="username" required="required" placeholder="Insira seu usuário" size="13"/>
           <br><br>
-          <input type="password" name="entrada_login_senha" placeholder="Insira sua senha" size="13"/>
+          <input type="password" id="id_password" type="password" name="password" placeholder="Insira sua senha" size="13"/>
           <strong>
             <br>
             <a class="tag_a_esqueci_senha botao_abrir_popups" href="#">Esqueci minha senha</a>
@@ -47,49 +49,32 @@
           <br><br>
           <input type="submit" name="botaoEntrar" value="ENTRAR" class="botoes_form_cadastro"/>
           <br><br>
+          </form>
           <strong>
             Novo por aqui?
             <br>
            <a href="{% url 'contas:cadastrar' %}">Cadastre-se</a>
           </strong>
-        </form>
-
+        
       </div>
     </li>
     {% endif %}
-    <li style="float:right;"><a class="botao_ajuda" href="../../../ajuda"><i class="material-icons">help_outline</i> Ajuda</a></li>
-    <li class="li_entrada_pesquisa">
+    {% if user.is_authenticated %}
+    <li class="botao_sair"><a href="{% url 'logout' %}"><i class="material-icons">person_outline</i> Sair </a></li>
+    {% endif %}
+    <!-- <li class="float-right"><a href="#"><i class="material-icons">info</i> Sobre Nós </a></li>
+    <li class="float-right"><a class="botao_ajuda" href="../../../ajuda"><i class="material-icons">help_outline</i> Ajuda</a></li> -->
+    <li class="li_entrada_pesquisa  float-right">
       <b>
-        <input type="text" name="entrada_pesquisa" placeholder="Pesquisar"/>
-        <button type="submit"><i class="material-icons">search</i></button>
-        <strong> Filtros </strong>
-        <select>
-          <optgroup label ="Filtrar por"> </optgroup>
-          <optgroup label = "Sem filtros">
-            <option value = "filtro_nenhum_filtro" > Nenhum Filtro </option>
-          </optgroup>
-          <optgroup label ="Data">
-            <option value = "filtro_data_mais_antigo" > Mais Antigos </option>
-            <option value = "filtro_data_ultimas_publicacoes" > Últimas publicações </option>
-          </optgroup>
-          <optgroup label = "Conteúdo">
-            <option value = "filtro_imagens" > Imagens </option>
-            <option value = "filtro_videos" > Vídeos </option>
-            <option value = "filtro_textos"> Textos </option>
-          </optgroup>
-        </select>
-
+        
+          <!-- <input type="text" name="entrada_pesquisa" placeholder="Pesquisar"/> -->
+          <!-- <button type="submit" formaction= "pesquisa/"><i class="material-icons">search</i></button> -->
+        
       </b>
     </li>
-
-
-    {% if user.is_authenticated %}
-     <li><a href="{% url 'logout' %}">Logout</a></li>
-    {% endif %}
-
-    
   </ul>
 </nav>
+
  {% if messages %}
       <ul class="messages">
         {% for message in messages %}
@@ -99,34 +84,21 @@
     {% endif %}
   <br>
 
-  <div class="bloco_principal_aulas">
+  <header>
+    {% block header %}
+    {% endblock %}
+  </header>
 
-   
-    
+  <div class="bloco_principal">
     {% block content %}
     {% endblock %}
-
-
   </div>
+
   <aside>
-  <fieldset>
-    <legend> Notícias </legend>
+  {% block aside %}
+  {% endblock %}
+  </aside>
 
-    <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO X PRA LISTAR AS NOTÍCIAS -->
-    {% for noticia in noticias %}
-    <div class="noticia_content_aside">
-      {% if noticia.capa %}
-      <img src="{{noticia.capa.url}}" alt="#" class="imagem_noticia_aside">
-      {% endif %}
-      <a href="{% url 'noticias:lerNoticia' pk=noticia.pk %}" class="titulo_noticia_aside">{{noticia.titulo}}</a>
-      <div class="resumo_noticia_aside">
-        {{noticia.resumo}}
-      </div>
-    </div>
-    {% endfor %}
-
-  </fieldset>
-</aside>
 
 <!-- [2] POPUP PARA RECUPERAÇÃO DE SENHA (Icon Login > Esqueci minha senha) -->
 <div id="popup_esqueci_senha" class="modal">
@@ -170,9 +142,8 @@ span[0].onclick = function() {
   popupCadastros[0].style.display = "none";
 }
 
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
     if (event.target == popupCadastros) {
       popupCadastros.style.display = "none";
     }
@@ -182,3 +153,5 @@ window.onclick = function(event) {
   </script>
 </body>
 </html>
+
+

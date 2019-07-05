@@ -1,46 +1,69 @@
-{% extends 'base_index.html' %}
+{% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}Página Inicial{% endblock %}
+
+{% block header %}
+{% load static %}
+<div class="jumbotron_fundo">
+  <!-- <img src="../imagens/icon.svg" alt=""> -->
+  <h1>BPF IFSC - Boas Práticas de Fabricação IFSC</h1>
+  <h3 class="lead">Cadastre-se em nosso site e conheça mais sobre as boas práticas de fabricação se cadastrando gratuitamente
+    nos cursos e aulas disponíveis e partipando dos Quiz para testar seu conhecimento. <br>Confira! </h3>
+</div>
+{% endblock %}
+
+
 {% block content %}
 
-<header>
-  {% load static %}
-  <a href=""><img id="display_imagem_header" src="{% static 'imagens/header.png' %}" alt = "Header." title = "Header da Página" /></a>
-</header>
-
-<div class="bloco_principal">
-
-  <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO 5 + OU - PRA LISTAR AS AULAS -->
-  {% if not aulas %}
-  <h3 class="info_nenhuma_aula_cadastrada">NÃO HÁ NENHUMA AULA CADASTRADA NO MOMENTO.</h3>
-  {% else %}
-  {% for aula in aulas %}
-  <div class="box_topico_aula">
-    <a href = "{% url 'aulas:aula' pk=aula.pk %}" target = "_blank">
-      {% if aula.capa %}
-      <img src="{{aula.capa.url}}" alt="{{aula.titulo}}" class="imagem_aula_bloco_principal"/>
-      {%endif%}
-
+{% if not aulas %}
+<h3 class="info_nenhuma_aula_cadastrada">NÃO HÁ NENHUMA AULA CADASTRADA NO MOMENTO.</h3>
+{% else %}
+{% for aula in aulas %}
+<div class="box_topico_aula">
+  <a href = "{% url 'aulas:aula' pk=aula.pk %}">
    
-    <div class = "texto_titulo"><a href = "{% url 'aulas:aula' pk=aula.pk %}" target = "_blank" >{{aula.titulo}}</a></div>
-     </a>
-    <div class = "texto_resumo">{{aula.resumo}}</div>
-  </div>
-
-  {% endfor %}
-
-
-
-  <ol id="lista_proximas_paginas">
-    <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO [(TOTAL DE AULAS / TAMANHO DO FOR) =  NÚMERO DE PÁGINAS] -->
-    <li><a href="#">Próxima Página</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">...</a></li>
-    <li><a href="#">Última Página</a></li>
-  </ol>
-    {% endif %}
+{% if aula.capa %}
+      <img src="{{aula.capa.url}}" alt="{{aula.titulo}}" class="imagem_aula_bloco_principal"/>
+      {%endif%}</a>
+  <div class = "texto_titulo"><a href = "{% url 'aulas:aula' pk=aula.pk %}" >{{aula.titulo}}</a></div>
+  <div class="titulo_sub_nome_curso">Curso: {{aula.curso.nome}}</div>
+  <div class = "texto_resumo">{{aula.resumo}}</div>
 </div>
-
+{% endfor %}
+<!-- <br><br><br><br><br>
+<ol id="lista_proximas_paginas"> -->
+  <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO [(TOTAL DE AULAS / TAMANHO DO FOR) =  NÚMERO DE PÁGINAS] -->
+  <!-- <li><a href="#">Próxima Página</a></li>
+  <li><a href="#">2</a></li>
+  <li><a href="#">3</a></li>
+  <li><a href="#">4</a></li>
+  <li><a href="#">...</a></li>
+  <li><a href="#">Última Página</a></li>
+</ol> -->
+{% endif %}
 {% endblock %}
+
+{% block aside %}
+<fieldset>
+  <legend> Notícias </legend>
+  <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO X PRA LISTAR AS NOTÍCIAS -->
+  {% if not noticias %}
+  <h5 class="info_nenhuma_noticia_cadastrada">NÃO HÁ NENHUMA NOTÍCIA CADASTRADA NO MOMENTO.</h5>
+  {% endif %}
+  {% for noticia in noticias %}
+  <div class="noticia_content_aside">
+    {% if noticia.capa %}
+    <img src="{{noticia.capa.url}}" alt="#" class="imagem_noticia_aside">
+    {% endif %}
+    <a href="{% url 'noticias:lerNoticia' pk=noticia.pk %}" class="titulo_noticia_aside">{{noticia.titulo}}</a>
+    <div class="resumo_noticia_aside">
+      {{noticia.resumo}}
+    </div>
+  </div>
+  {% endfor %}
+</fieldset>
+{% endblock %}
+
+
+
+

@@ -2,6 +2,10 @@
 
 {% block title %}{{aula.titulo}}{% endblock %}
 {% block content %}
+<!-- {% if request.user.is_superuser %}
+<input style="float: right;" type="submit" value="EDITAR" class="botoes_form_cadastro"/>
+<br>
+{% endif %} -->
 <h2>{{aula.titulo}}</h2>
 {{aula.conteudo}}
 <br>
@@ -9,6 +13,7 @@
 <iframe width="560" height="315" src="{{aula.video}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br>
 <br>
-<a href="{% url 'quiz:answerQuiz' pk=aula.pk%}">Fazer Quiz
 
+
+<button><a href="{% url 'quiz:answerQuiz' pk=aula.pk%}">Fazer quiz desta aula</a></button>
 {% endblock %}

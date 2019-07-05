@@ -2,11 +2,45 @@
 
 {% block title %}Cursos{% endblock %}
 {% block content %}
+<fieldset class="fieldset_templates">
+  <div class="header_para_fieldsets">
+    <h3>CURSOS</h3>
+    <h6 style="padding: 0; margin: 0;"><small>Clique no curso desejado para se cadastrar e acomapanhar as aulas.</small></h6>
+  </div>
 
-  {%for curso in cursos%}
-     <a href="{% url 'aulas:entrarNoCurso' pkCurso=curso.pk %}">{{curso.nome}}</a>
+  {% if not cursos %}
+  <h3 class="info_nenhuma_aula_cadastrada">NÃO HÁ NENHUM CURSO CADASTRADO NO MOMENTO.</h3>
+  {% else %}
+  {% for curso in cursos %}
+  <div class="box_topico_curso">
+   <p>{{ curso.nome}}</p>
+   
+  </div>
+  <div class="collapsible_content">
+    <p class="descricao_curso">{{ curso.descricao }}</p>
+    <a href="{% url 'aulas:entrarNoCurso' pkCurso=curso.pk %}" >Cadastrar-se</a>
+    
+  </div>
+  {% endfor %}
+  {% endif %}
+</fieldset>
 
-  {%endfor%}
 
+<script>
+var coll = document.getElementsByClassName("box_topico_curso");
+var i;
 
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("mouseover", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+}
+</script>
 {% endblock %}
+

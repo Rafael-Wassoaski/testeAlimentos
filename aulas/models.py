@@ -7,6 +7,7 @@ class Curso(models.Model):
 	autor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	nome = models.CharField(max_length = 100, default='', blank = False)
 	numAulas = models.IntegerField(default = 0)
+	descricao = models.TextField(default='', blank=False)
 
 	def __str__(self):
 		return '{}'.format(self.nome)

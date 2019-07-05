@@ -2,17 +2,53 @@
 
 {% block title %}Nova Aula{% endblock %}
 {% block content %}
-<fieldset id="fieldset_templates">
-  <legend> Nova Aula </legend>
+<fieldset class="fieldset_templates">
+  <div class="header_para_fieldsets">
+    <h3>CADASTRAR NOVA AULA</h3>
+  </div>
 
  <form method="POST" enctype="multipart/form-data">
  	{% csrf_token %}
 
- 	{{formAula.as_p}}
- 	{{formAula.curso.nome}}
+  <label for="titulo">TÍTULO</label>
+  <div id="titulo">
+    {{ formAula.titulo }}
+  </div>
 
-  <input type="submit" value="CADASTRAR" class="botoes_form_cadastro"/>
+  <label for="conteudo">CONTEÚDO DA AULA</label>
+  <div id="conteudo">
+    {{ formAula.conteudo }}
+  </div>
+
+  <label for="resumo">RESUMO</label>
+  <div id="resumo">
+    {{ formAula.resumo }}
+  </div>
+
+  <label for="url_video">URL DO VÍDEO</label>
+  <div id="url_video">
+    {{ formAula.video }}
+  </div>
+
+  <label for="status_cadastro">STATUS: CADASTRO ATIVO?</label>
+  <label class="checkbox">
+    {{ formAula.ativo }}
+    <span class="checkmark"></span>
+  </label>
+
+  <label for="capa">FOTO DE APRESENTAÇÃO</label>
+  <div id="capa">
+    {{ formAula.capa }}
+  </div>
+
+  <label for="curso">CURSO</label>
+  <div id="curso">
+    {{ formAula.curso }}
+  </div>
+
+  {{formAula.curso.nome}}
+<input type="submit" value="CADASTRAR" class="botoes_form_cadastro"/>
  </form>
-   </fieldset>
+</fieldset>
 
 {% endblock %}

@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.contrib import messages
 
 
+
 from django.contrib.auth.decorators import user_passes_test, login_required
 #usar login required aqui
 
@@ -43,11 +44,10 @@ def criarNovaAula(request):
 		if formAula.is_valid():
 			aula = formAula.save(commit = False)
 			aula.autor = request.user
-			aula.video = "https://www.youtube.com/embed/"+aula.video
+			aula.video = aula.video.replace("watch?v=", "embed/")
 			aula.data = timezone.now()
 			curso = Curso.objects.get( pk = formAula.cleaned_data['curso'].pk)
 			aula.idAula = curso.numAulas
-			print(aula.idAula)
 			curso.numAulas = curso.numAulas + 1
 			curso.save()
 			aula.save()
@@ -82,7 +82,7 @@ def criarCurso(request):
 
 
 def aulasList(request):
-	aulas = Aula.objects.filter(data__lte=timezone.now()).order_by('-data')
+	aulas = Aula.objects.filter(ativo = True,data__lte=timezone.now()).order_by('-data')
 	noticiasList = noticias.views.noticiasList()
 	return render(request, 'index.html', {'aulas':aulas, 'noticias':noticiasList })
 
@@ -94,6 +94,7 @@ def aula(request, pk):
 	try:
 		aluno = cursoAluno.objects.get(aluno = request.user, curso = curso)
 	except cursoAluno.DoesNotExist:
+		messages.error(request,'Você não está cadastrado no curso desta aula')
 		return redirect("aulas:cursosList")
 
 	
@@ -102,8 +103,17 @@ def aula(request, pk):
 		noticiasList = noticias.views.noticiasList()
 		return render(request, 'html/aulas/aula.html', {'aula':aula, 'noticias':noticiasList, 'aluno': aluno })
 	else:
+		messages.error(request,'Você não tem acesso a esta aula')
 		return redirect("aulas:aulasList")
 	
+def pesquisa(request):
+	if request.method == "POST":
+		try:
+			aula = Aula.objects.filter(titulo__contains = request.POST.get['entrada_pesquisa'])
+		except aula.DoesNotExist:
+			messages.error(request,'Aula não encontrada')
+			return redirect("aulas:aulasList")
+		aula(request, aula.pk)
 
 
 def ajuda(request):

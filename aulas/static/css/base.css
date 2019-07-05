@@ -5,42 +5,35 @@ body {
   background-color: #5cd65c;
   background-image: url('../imagens/fundo.png');
   background-repeat: repeat;
-  background-size: 220px;
+  background-size: 180px;
   font-family: 'KoHo', sans-serif;
 }
 
 /* HEADER */
 header {
   display: block;
-  background-color: white;
   margin-bottom: 2%;
 }
 
-#display_imagem_header {
-  background-color: white;
-  height: 220px;
-  width: 100%;
+.jumbotron_fundo {
+  background: linear-gradient(to right, white 30%, transparent);
+  background-size: 900px;
+  background-repeat: no-repeat;
+  padding: 2% 50% 2% 5%;
+}
+
+.jumbotron_fundo h1, h3 {
+  padding: 0;
+  margin: 0;
 }
 
 /* BLOCO CENTRAL */
 .bloco_principal {
   position: absolute;
-  display: grid;
-  background-color: white;
-  margin-left: 5%;
-  margin-bottom: 4%;
-  max-width: 780px;
-  min-width: 780px;
-  padding: 2% 3% 2% 2%;
-  margin-right: 3%;
-}
-
-.bloco_principal_aulas {
-  position: absolute;
   display: block;
   background-color: white;
   margin-left: 5%;
-  margin-bottom: 4%;
+  margin-bottom: 4% !important;
   max-width: 780px;
   min-width: 780px;
   padding: 2% 3% 3% 2%;
@@ -52,11 +45,15 @@ header {
   text-align: center;
 }
 
+.info_nenhuma_noticia_cadastrada {
+  color: white;
+  text-align: center;
+}
+
 /* ASIDE */
 aside {
   background-color: #ff944d;
   width: 320px;
-  min-height: 500px;
   float: right;
   margin-right: 3%;
   margin-bottom: 4%;
@@ -67,14 +64,14 @@ aside fieldset legend {
   color: white;
 }
 
+aside fieldset {
+  margin: 2%;
+}
+
 legend {
   font-size: 26px;
   display: block;
   margin: 0 auto;
-}
-
-aside fieldset {
-  min-height: 500px;
 }
 
 .noticia_content_aside {
@@ -87,7 +84,7 @@ aside fieldset {
 
 .titulo_noticia_aside {
   color: #141f1f;
-  font-size: 15px;
+  font-size: 13px;
   text-align: center;
   padding-left: 0;
   padding-top: 2%;
@@ -111,11 +108,6 @@ aside fieldset {
 .resumo_noticia_aside {
   font-size: 15px;
   text-align: justify;
-}
-
-.imagem_noticia_detail {
-  max-width: 700px;
-  max-height: 400px;
 }
 
 /* BARRA NAV DE MENU SUPERIOR */
@@ -182,11 +174,13 @@ li button {
   border-left: 1px solid #bbb;
 }
 
+.botao_sair {
+  float: right;
+}
+
 .li_entrada_pesquisa {
   max-height: 50px;
   border-right: none;
-  float: right;
-  margin-right: 7%;
 }
 
 .botao_login {
@@ -335,6 +329,7 @@ li a i .dropdown {
   text-align: center;
 }
 
+/* ESTILIZAÇÃO DOS FORMS E INPUTS */
 .botoes_form_cadastro {
   margin: 0 auto;
   display: block;
@@ -344,7 +339,134 @@ li a i .dropdown {
   color: black;
   font-size: 14px;
   font-family: 'KoHo', sans-serif;
+}
 
+form {
+  display: grid;
+}
+
+form label {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+form label[for=resumo], label[for=conteudo], label[for=descricao] {
+  text-align: center;
+}
+
+input[type=text]{
+  font-size: 17px;
+}
+
+form div input {
+  background-color: transparent;
+  border-radius: 10px;
+  min-height: 23px;
+  min-width: 400px;
+  margin-bottom: 3%;
+  margin-top: 1%;
+  padding: 0 1%;
+}
+
+form #resumo textarea {
+  display: block;
+  width: 60%;
+  border-radius: 10px;
+  padding: 1%;
+  margin: 0 auto;
+  margin-bottom: 3%;
+  margin-top: 1%;
+  font-size: 16px;
+  max-width: 760px;
+  max-height: 250px;
+}
+
+form #descricao textarea {
+  display: block;
+  width: 80%;
+  border-radius: 10px;
+  padding: 1%;
+  margin: 0 auto;
+  margin-bottom: 3%;
+  margin-top: 1%;
+  font-size: 16px;
+  max-width: 760px;
+  max-height: 150px;
+}
+
+form #conteudo textarea {
+  display: block;
+  min-height: 50px;
+  width: 85%;
+  border-radius: 10px;
+  padding: 1%;
+  margin: 0 auto;
+  margin-bottom: 3%;
+  margin-top: 1%;
+  font-size: 16px;
+  max-width: 760px;
+  min-height: 300px;
+}
+
+/* CHECKBOX ESTILIZADO*/
+.checkbox {
+  display: block;
+  position: relative;
+  margin-bottom: 3%;
+  margin-left: 12%;
+  cursor: pointer;
+}
+
+.checkbox input {
+  position: relative;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  margin: 2%;
+  height: 25px;
+  width: 25px;
+  background-color: red;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox:hover input ~ .checkmark {
+  background-color: grey;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox input:checked ~ .checkmark {
+  background-color: green;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 /* TÓPICOS DAS AULAS INDEX */
@@ -354,12 +476,16 @@ li a i .dropdown {
   float: left;
   margin-right: 2%;
   position: relative;
-  padding-top: 3%;
-  background-color: silver;
 }
 
 .texto_titulo {
   max-height: 300px;
+  text-align: left;
+}
+
+.titulo_sub_nome_curso {
+  font-size: 15px;
+  color: blue;
   text-align: left;
 }
 
@@ -400,6 +526,34 @@ li a i .dropdown {
 
 }
 
+/* TEMPLATE CURSOS */
+.box_topico_curso {
+  position: relative;
+  margin: 1% 0 1% 0;
+}
+
+.box_topico_curso a {
+  font-size: 28px;
+  text-transform: uppercase;
+  border-bottom: 1px solid grey;
+  margin: 0;
+  color: black;
+}
+
+.active, .box_topico_curso:hover {
+  background-color: #f2f2f2;
+}
+
+.collapsible_content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.descricao_curso {
+  font-size: 16px;
+}
 /* FIELDSETS DE ALGUNS TEMPLATES */
 .fieldset_templates {
   text-align: center;
@@ -408,9 +562,38 @@ li a i .dropdown {
   text-align: left;
 }
 
-label {
+.fieldset_quiz_aula {
+  max-width: 96%;
+  margin-bottom: 3%;
+  ]
+}
+
+.imagem_noticia_detail {
+  max-width: 700px;
+  max-height: 400px;
+}
+
+optgroup label {
   font-size: 14px;
   font-weight: 900;
+}
+
+.header_para_fieldsets {
+  background-color: #5cd65c;
+  text-align: center;
+  font-size: 25px;
+  width: 100%;
+  min-height: 70px;
+  margin-bottom: 2%;
+}
+
+.header_para_fieldsets h3 {
+  margin: 0;
+  padding-top: 2%;
+}
+
+.pergunta_quiz {
+  font-size: 20px;
 }
 
 /* TEMPLATE CONSULTAS */
@@ -444,4 +627,13 @@ th {
   max-width: 400px;
   display: block;
   margin: 0 auto;
+}
+
+/* ADICIONAIS ÚTEIS */
+.float-right {
+  float: right;
+}
+
+.margin-top-5 {
+  margin-top: 5%;
 }

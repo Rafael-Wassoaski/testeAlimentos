@@ -342,7 +342,7 @@ li a i .dropdown {
 }
 
 form {
-  display: grid;
+  display: inline-block;
 }
 
 form label {

@@ -6,38 +6,62 @@
   <legend> Consultas </legend>
 
   <strong> Selecione o conteúdo desejado </strong>
-  <select>
+  <form method="GET">
+  <select name='consulta'>
     <optgroup label ="Listar as"> </optgroup>
-      <option value = "filtro_nenhum_filtro" > Aulas </option>
-      <option value = "filtro_data_mais_antigo" > Notícias </option>
+      <option value = "aulas" > Aulas </option>
+      <option value = "noticias" > Notícias </option>
   </select>
   <button style="vertical-align: middle;" type="submit"><i class="material-icons">search</i></button>
+</form>
   <br>
 
-  <table>
-<tr>
+ 
+  
+  {% if aulas %}
+
+<table>
+  <tr>
   <th>Nome</th>
   <th>Descrição</th>
-  <th>Sei lá</th>
-</tr>
-  <tr>
-    <a href="#">
-      <td>O que é Tecnologia em Alimentos</td>
-      <td>A tecnologia em alimentos é...</td>
-      <td>Alguma coisa</td>
-    </a>
+  <th>Curso</th>
   </tr>
-<tr>
-  <td>O que é ADS</td>
-  <td>Descrição resumida de ADS</td>
-  <td>Outra coisa</td>
-</tr>
-<tr>
-  <td>Aula 3</td>
-  <td>Descrição resumida da aula 2</td>
-  <td>Coisa</td>
-</tr>
-</table>
+
+    {% for aula in aulas %}
+      <tr>
+        
+        <td><a href="{% url 'aulas:aula' pk=aula.pk %}">{{aula.titulo}}</a></td> 
+        <td>{{aula.resumo}}</td>
+        <td>{{aula.curso.nome}}</td>
+     
+      </tr>
+
+    {% endfor %}
+    </table>
+  {% endif %}
+
+  {% if noticias %}
+
+<table>
+  <tr>
+  <th>Título</th>
+  <th>Subtítulo</th>
+  <th>Resumo</th>
+  </tr>
+
+    {% for noticia in noticias %}
+      <tr>
+        
+        <td><a href="{% url 'noticias:lerNoticia' pk=noticia.pk %}">{{noticia.titulo}}</a></td> 
+        <td>{{noticia.subtitulo}}</td>
+        <td>{{noticia.resumo}}</td>
+     
+      </tr>
+
+    {% endfor %}
+    </table>
+  {% endif %}
+
 
 </fieldset>
 {% endblock %}

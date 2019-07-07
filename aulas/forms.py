@@ -1,5 +1,5 @@
 from django import forms
-from .models import Aula, Curso
+from .models import Aula, Curso, Comentario
 
 class FormularioAula(forms.ModelForm):
 	class Meta:
@@ -22,3 +22,15 @@ class FormularioCurso(forms.ModelForm):
 		super(FormularioCurso, self).__init__(*args, **kwargs)
 		self.fields['nome'].widget.attrs.update({'placeholder' : 'Nome do curso'})
 		self.fields['descricao'].widget.attrs.update({'placeholder' : 'Faça uma breve descrição para que os alunos saibam o conteúdo a ser apresentado no curso'})
+
+
+
+class FormularioComentario(forms.ModelForm):
+	class Meta:
+		model = Comentario
+		fields = ('comentario',)
+
+	def __init__(self, *args, **kwargs):
+		super(FormularioComentario, self).__init__(*args, **kwargs)
+		self.fields['comentario'].widget.attrs.update({'placeholder' : 'Seu comentário'})
+		

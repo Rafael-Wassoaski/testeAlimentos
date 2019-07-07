@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from . import views
 
 app_name = "aulas"
@@ -10,11 +10,12 @@ urlpatterns = [
     path('criarCurso/', views.criarCurso, name = 'criarCurso'),
     # path('', views.index, name='index'),
     # path('aula', views.aula, name='aula'),
-    path('ajuda', views.ajuda, name='ajuda'),
-    path('consultas', views.consultas, name='consultas'),
+    path('ajuda/', views.ajuda, name='ajuda'),
+    path('consultas/', views.consultas, name='consultas'),
     # path('recuperarsenha', views.recuperarsenha, name='recuperarsenha'),
     path('cadastro/<int:pkCurso>', views.entrarNoCurso, name = 'entrarNoCurso'),
     path('cursosList/', views.cursosList, name = 'cursosList'),
-    path('pesquisa/', views.pesquisa, name = 'pesquisa')
+    re_path(r'^pesquisa/?$', views.pesquisa, name='pesquisa'),
+    path('comentar/<pkAula>/', views.comentar, name = 'comentar'),
 
 ]

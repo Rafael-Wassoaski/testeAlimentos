@@ -15,5 +15,28 @@
 <br>
 
 
-<button><a href="{% url 'quiz:answerQuiz' pk=aula.pk%}">Fazer quiz desta aula</a></button>
+<div class="botoes_form_cadastro"><a href="{% url 'quiz:answerQuiz' pk=aula.pk%}">Fazer quiz desta aula</a></div>
+
+
+{% if comentarios %}
+
+	{% for comentario in comentarios %}
+		<p>{{comentario.data}}</p>
+		<h3>{{comentario.comentario}}</h3>
+		<p>Autor: {{comentario.aluno.username}} ({{comentario.aluno}})</p>
+	{% endfor %}
+
+{% endif %}
+
+<form method="POST" action="{% url 'aulas:comentar' pkAula=aula.pk %}">
+	{% csrf_token %}
+	
+	<textarea rows="10" cols="30" name="comentario" placeholder="Seu comentário"></textarea>
+	<br>
+	<br>
+	<button type="submit">Comentar</button>
+
+
+</form>
+
 {% endblock %}

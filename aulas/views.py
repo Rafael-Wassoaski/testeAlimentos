@@ -1,15 +1,35 @@
 from django.shortcuts import render, redirect
-from .models import Aula, Curso, cursoAluno
-from .forms import FormularioAula, FormularioCurso
+from .models import Aula, Curso, cursoAluno, Comentario
+from .forms import FormularioAula, FormularioCurso,FormularioComentario
 from contasAlunos.forms import CustomUserCreationForm
 import noticias.views
 from django.utils import timezone
 from django.contrib import messages
+from django.core.mail import send_mail
 
 
 
 from django.contrib.auth.decorators import user_passes_test, login_required
 #usar login required aqui
+
+
+@login_required
+def comentar(request, pkAula):
+	if request.method == "POST":
+
+		comentario = Comentario()
+
+		comentario.aula = Aula.objects.get(pk = pkAula)
+		comentario.aluno = request.user
+		comentario.data = timezone.now()
+		comentario.comentario = request.POST.get('comentario')
+		comentario.save()
+		messages.success(request, 'Comentario registrado com sucesso')
+		return redirect('aulas:aula', pkAula)
+
+
+
+	
 
 @login_required
 def entrarNoCurso(request, pkCurso):
@@ -52,6 +72,17 @@ def criarNovaAula(request):
 			curso.save()
 			aula.save()
 			messages.success(request, 'Aula cadastrada com sucesso.')
+			try:
+				alunos = cursoAluno.objects.filter(curso = curso)
+			except cursoAluno.DoesNotExist:
+				return redirect('quiz:newQuiz', aula.pk)
+
+			for aluno in alunos:	
+				print("enviando")
+				send_mail('Novo aula BPF IFSC', 'Olá {}, uma nova aula foi cadastrada no curso de {}: {}'.format(aluno.aluno.username, curso.nome, aula.titulo), ['bpf.ifsc@gmail.com'], [aluno.aluno.email])
+
+
+
 			return redirect('quiz:newQuiz', aula.pk)
 		else:
 			messages.error(request, 'Não foi possível cadastrar aula.')
@@ -101,19 +132,22 @@ def aula(request, pk):
 	
 	if aluno.aula >= aula.idAula:	
 		noticiasList = noticias.views.noticiasList()
-		return render(request, 'html/aulas/aula.html', {'aula':aula, 'noticias':noticiasList, 'aluno': aluno })
+		comentarios = Comentario.objects.filter(aula = aula)
+		return render(request, 'html/aulas/aula.html', {'aula':aula, 'noticias':noticiasList, 'aluno': aluno, 'comentarios':comentarios })
 	else:
 		messages.error(request,'Você não tem acesso a esta aula')
 		return redirect("aulas:aulasList")
 	
 def pesquisa(request):
-	if request.method == "POST":
-		try:
-			aula = Aula.objects.filter(titulo__contains = request.POST.get['entrada_pesquisa'])
-		except aula.DoesNotExist:
+	if request.method == "GET":
+		
+		aulas= Aula.objects.filter(titulo__contains = request.GET.get('entrada_pesquisa', None))
+		
+		if not aulas:
 			messages.error(request,'Aula não encontrada')
 			return redirect("aulas:aulasList")
-		aula(request, aula.pk)
+		else:
+			return render(request, 'index.html', {'aulas':aulas, })
 
 
 def ajuda(request):
@@ -121,5 +155,12 @@ def ajuda(request):
 	return render(request, 'html/aulas/ajuda.html', {'noticias':noticiasList,})
 
 def consultas(request):
-	noticiasList = noticias.views.noticiasList()
-	return render(request, 'html/aulas/consultas.html', {'noticias':noticiasList, })
+	
+	noticiasList = None
+	aulasList = None
+	if request.GET.get('consulta') == 'aulas':
+		aulasList = Aula.objects.all()
+	if request.GET.get('consulta') == 'noticias':
+		noticiasList = noticias.views.noticiasList()
+	
+	return render(request, 'html/aulas/consultas.html', {'noticias':noticiasList, 'aulas':aulasList})

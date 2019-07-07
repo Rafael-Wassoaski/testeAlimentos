@@ -36,9 +36,10 @@ class cursoAluno(models.Model):
 	aula = models.IntegerField(default = 0)
 
 class Comentario(models.Model):
-	#criar classe aluno
-	aula = models.ForeignKey(Aula, on_delete=models.CASCADE)
+	aluno = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, related_name='alunoComentario')
+	aula = models.ForeignKey(Aula, on_delete=models.CASCADE, related_name = 'aulaComentario')
 	comentario = models.TextField()
+	data = models.DateTimeField(null = False)
 
 	def published_date(self):
 		published_date = timezone.now()

@@ -11,6 +11,8 @@
     <optgroup label ="Listar as"> </optgroup>
       <option value = "aulas" > Aulas </option>
       <option value = "noticias" > Notícias </option>
+      <option value="cursos">Cursos</option>     
+
   </select>
   <button style="vertical-align: middle;" type="submit"><i class="material-icons">search</i></button>
 </form>
@@ -55,6 +57,27 @@
         <td><a href="{% url 'noticias:lerNoticia' pk=noticia.pk %}">{{noticia.titulo}}</a></td> 
         <td>{{noticia.subtitulo}}</td>
         <td>{{noticia.resumo}}</td>
+     
+      </tr>
+
+    {% endfor %}
+    </table>
+  {% endif %}
+
+   {% if cursos %}
+
+<table>
+  <tr>
+  <th>Nome</th>
+  <th>Descrição</th>
+
+  </tr>
+
+    {% for curso in cursos %}
+      <tr>
+        
+        <td><a href="{% url 'aulas:cursoAula' pk=curso.pk %}">{{curso.nome}}</a></td> 
+        <td>{{curso.descrição}}</td>
      
       </tr>
 

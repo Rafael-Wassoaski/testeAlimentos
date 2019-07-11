@@ -18,5 +18,7 @@
 <br>
 <br>
 
+<a href="{% url 'noticias:lerNoticiaAnt' pk=noticia.pk %}" style="float:left;">< Noticia Anterioir </a><a href="{% url 'noticias:lerNoticiaProx' pk=noticia.pk %}" style="float:right;">Próxima Noticia ></a>
+
 
 {% endblock %}

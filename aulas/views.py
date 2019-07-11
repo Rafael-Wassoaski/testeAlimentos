@@ -145,7 +145,7 @@ def pesquisa(request):
 		
 		if not aulas:
 			messages.error(request,'Aula não encontrada')
-			return redirect("aulas:aulasList")
+			return render(request, 'html/aulas/semAula.html', {'busca': request.GET.get('entrada_pesquisa', None)})
 		else:
 			return render(request, 'index.html', {'aulas':aulas, })
 
@@ -158,9 +158,24 @@ def consultas(request):
 	
 	noticiasList = None
 	aulasList = None
+	curso = None
 	if request.GET.get('consulta') == 'aulas':
 		aulasList = Aula.objects.all()
 	if request.GET.get('consulta') == 'noticias':
 		noticiasList = noticias.views.noticiasList()
+	if request.GET.get('consulta') == 'cursos':
+		curso = Curso.objects.all()
 	
-	return render(request, 'html/aulas/consultas.html', {'noticias':noticiasList, 'aulas':aulasList})
+	return render(request, 'html/aulas/consultas.html', {'noticias':noticiasList, 'aulas':aulasList, 'cursos':curso})
+
+
+
+def cursoAula(request, pk):
+	try:
+		cursoPk = Curso.objects.get(pk = pk)
+	except Curso.DoesNotExist:
+		messages.error(request, 'Curso inexitente')
+		return redirect('aulas:consultas')
+
+	aulasList = Aula.objects.filter (curso = cursoPk)
+	return render(request, 'html/aulas/consultasAulasCurso.html', {'aulas': aulasList, 'curso':cursoPk})

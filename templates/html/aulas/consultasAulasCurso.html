@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Aulas do curso {{curso.nome}}{% endblock %}
+
+{% block header %}
+{% load static %}
+<div class="jumbotron_fundo">
+  <!-- <img src="../imagens/icon.svg" alt=""> -->
+  <h1>BPF IFSC - Boas Práticas de Fabricação IFSC</h1>
+  
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+{% if not aulas %}
+<h3 class="info_nenhuma_aula_cadastrada">NÃO HÁ NENHUMA AULA CADASTRADA NESTE CURSO.</h3>
+{% else %}
+<h3 class="info_nenhuma_aula_cadastrada">Aulas do curso {{curso.nome}}</h3>
+{% for aula in aulas %}
+
+<div class="box_topico_aula">
+  <a href = "{% url 'aulas:aula' pk=aula.pk %}">
+   
+{% if aula.capa %}
+      <img src="{{aula.capa.url}}" alt="{{aula.titulo}}" class="imagem_aula_bloco_principal"/>
+      {%endif%}</a>
+  <div class = "texto_titulo"><a href = "{% url 'aulas:aula' pk=aula.pk %}" >{{aula.titulo}}</a></div>
+  <div class="titulo_sub_nome_curso">Curso: {{aula.curso.nome}}</div>
+  <div class = "texto_resumo">{{aula.resumo}}</div>
+</div>
+{% endfor %}
+<!-- <br><br><br><br><br>
+<ol id="lista_proximas_paginas"> -->
+  <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO [(TOTAL DE AULAS / TAMANHO DO FOR) =  NÚMERO DE PÁGINAS] -->
+  <!-- <li><a href="#">Próxima Página</a></li>
+  <li><a href="#">2</a></li>
+  <li><a href="#">3</a></li>
+  <li><a href="#">4</a></li>
+  <li><a href="#">...</a></li>
+  <li><a href="#">Última Página</a></li>
+</ol> -->
+{% endif %}
+{% endblock %}
+
+
+
+
+

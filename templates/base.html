@@ -9,6 +9,15 @@
   <meta name = "robots" content = "index, follow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
   <link rel = "icon" href = "{% static 'imagens/icon.svg' %}"/>
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
@@ -75,14 +84,29 @@
   </ul>
 </nav>
 
+
  {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-          <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-      </ul>
+ <div class="modal-content">
+  <div class="modal-body">
+      
+
+     {% for message in messages %}
+
+  <div class="alert {{ message.tags }} alert-dismissible d-inline-flex p-2" role="alert">
+ 
+   
+    
+    {{ message }}
+       <span aria-hidden="true"><i class="fas fa-window-close" class="close" data-dismiss="alert" aria-label="Close"></i></span>
+  </div>
+
+{% endfor %}
+        </div>
+
+        </div>
     {% endif %}
   <br>
+
 
   <header>
     {% block header %}
@@ -100,25 +124,15 @@
   </aside>
 
 
+
 <!-- [2] POPUP PARA RECUPERAÇÃO DE SENHA (Icon Login > Esqueci minha senha) -->
 <div id="popup_esqueci_senha" class="modal">
   <div class="modal-content">
     <div class="modal-header">
       <span class="close">&times;</span>
-      <h2>Recuperação de Senha</h2>
+      <h2>Menssagem</h2>
     </div>
-    <div class="modal-body">
-      <form method="post" action="recuperarsenha">
-
-        <p>O form da recuperação de senha vai aqui. <br>Ex: e-mail para enviar link para o template para cadastrar a nova senha
-        </p>
-      </div>
-      <div class="modal-footer">
-        <input type="submit" name="botaoCadastrar" value="ENVIAR" class="botoes_form_cadastro"/>
-      </div>
-
-    </form>
-  </div>
+   
 </div>
 
 <!-- JAVASCRIPT DAS ANIMAÇÕES DO NAVBAR -> POPUPS E DROPDOWNS -->

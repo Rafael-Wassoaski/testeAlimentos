@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Página Inicial{% endblock %}
+
+{% block header %}
+{% load static %}
+<div class="jumbotron_fundo">
+  <!-- <img src="../imagens/icon.svg" alt=""> -->
+  <h1>BPF IFSC - Boas Práticas de Fabricação IFSC</h1>
+  <h3 class="lead">Cadastre-se em nosso site e conheça mais sobre as boas práticas de fabricação se cadastrando gratuitamente
+    nos cursos e aulas disponíveis e partipando dos Quiz para testar seu conhecimento. <br>Confira! </h3>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+
+<h3 class="info_nenhuma_aula_cadastrada">NENHUMA AULA ENCONTRADA PARA A BUSCA: {{busca}}.</h3>
+<a href="../../../">RETORNAR AO MENU</a>
+
+<!-- <br><br><br><br><br>
+<ol id="lista_proximas_paginas"> -->
+  <!-- AQUI VAI TER QUE FAZER UM FOR DE TAMANHO [(TOTAL DE AULAS / TAMANHO DO FOR) =  NÚMERO DE PÁGINAS] -->
+  <!-- <li><a href="#">Próxima Página</a></li>
+  <li><a href="#">2</a></li>
+  <li><a href="#">3</a></li>
+  <li><a href="#">4</a></li>
+  <li><a href="#">...</a></li>
+  <li><a href="#">Última Página</a></li>
+</ol> -->
+
+
+
+
+</fieldset>
+{% endblock %}
+
+
+
+

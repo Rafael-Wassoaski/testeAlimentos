@@ -17,5 +17,6 @@ urlpatterns = [
     path('cursosList/', views.cursosList, name = 'cursosList'),
     re_path(r'^pesquisa/?$', views.pesquisa, name='pesquisa'),
     path('comentar/<pkAula>/', views.comentar, name = 'comentar'),
+    path('cursoAula/<pk>', views.cursoAula, name = 'cursoAula')
 
 ]

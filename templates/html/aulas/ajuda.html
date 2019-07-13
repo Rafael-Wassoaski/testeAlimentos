@@ -4,19 +4,80 @@
 {% block content %}
 <fieldset class="fieldset_templates">
   <legend> Recursos de Ajuda </legend>
-PASK ALAL ALALA ALALAL ALAMALA AKA
-<br>
-<br>
-<br>AQUI VAI TER QUE VER SE VAI TER TAMBÉM CONTROLE DE ACESSOS EM QUE A AJUDA PRO ALUNO É UM E PRA ADMs É OUTRA.
-<br>
-<br>Qualquer coisa pra usuário aluno coloca um vídeo de autoajuda da tela do sistema ensinado por nós
-e pra ADMs outro vídeo, além da ajuda escrita nos dois.
-<br>espaço
-<br>espaço
-<br>espaço
-<br>espaço
-<br>espaço
-<br>espaço
-<br>Eh isto ai!
+
+
+  	{% if request.user.is_superuser %}
+
+  	<h3>Quais as funções de um Admin?</h3>
+  	<p>Um administrador, super usuário ou simplesmente Admin pode:</p>
+  	<p>Cadastrar aulas através do botão Cadastro > Aula</p>
+  	<p>Note que para cadastrar uma aula, deve existir um curso, por isso verifique com antecedência na aba Cursos se o curso desejado já existe. Caso não exista, vá até Cadastro > Curso e informe um nome e uma descrição para criar um novo curso</p>
+  	<p>Após o cadastro da Aula o Admin deve cadastrar juntamente com a mesma, um Quiz com 5 perguntas de Verdadeiro e Falso</p>
+  	<p>Sempre que uma nova aula for cadastrada um e-mail será enviado a todos os alunos cadastrados no curso em que a aula foi criada</p>
+  	<p>O Admin também pode cadastrar Cursos através do botão Cadastro > Curso, o curso serve para um controle dos conteúdos das aulas, facilitando buscas, e para controlar o progresso dos alunos</p>
+  	<p>O Adimin também pode cadastrar Notícias através do botão Cadastro > Noticia, as noticias são posts simples, apenas com o intuito de movimentar o site.</p>
+  	<small>Em caso de dúvidas, um vídeo tutorial foi preparado</small>
+  	<br>
+  	<iframe width="560" height="315" src="https://www.youtube.com/embed/_2SlNBS6jok" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+  	{% endif %}
+
+	<h3>Quais as funções de um Aluno?</h3>
+	<br>
+	<br>
+	<h3>Cadastro</h3>
+	<p>Um aluno pode realizar seu cadastro no site clicando no ícone de login (<i class="material-icons">person_outline</i>), e clicando no botão "Cadastre-se"</p>
+	<small>Em caso de dúvidas, assista o vídeo abaixo </small>
+	<br>
+	<br>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/UXqMqqgDWYc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<br>
+	<br>
+	<h3>Login</h3>
+	<p>Para realizar o login no site clique no ícone de login (<i class="material-icons">person_outline</i>), e informe o usuário e a senha cadastrados anteriormente</p>
+	<small>Em caso de dúvidas, assista o vídeo abaixo </small>
+	<br>
+	<br>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/26IPIuUAYNk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<br>
+	<br>
+	<h3>Cursos</h3>
+	<p>O aluno que já estiver logado pode assistir as aulas cadastradas e responder aos seus respectivos quiz.
+	Para assistir as aulas de determinado curso o aluno deve estar cadastrado no mesmo, para isso clique em Cursos e procure pelo nome do curso desejado, após encontralo clique em "Cadastrar-se", após isto o aluno já será capaz de visualizar as aulas daquele curso</p>
+	<small>Em caso de dúvidas, assista o vídeo abaixo </small>
+	<br>
+	<br>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/OXTuRdcjaE8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<br>
+	<br>
+	<h3>Aulas</h3>
+	<p>O aluno que já estiver logado pode assistir as aulas cadastradas e responder aos seus respectivos quiz.
+	Caso o aluno tente assistir a uma aula de um curso que o mesmo não esteja cadastrado, ele será redirecionado para a página de cadastro do curso. Após o cadastro o aluno será capaz de assistir a primeira aula do curso e responder seu quiz. Note que, o aluno apenas poderá assistir a próxima aula após reponder de forma correta pelo menos 3 perguntas do quiz, caso o mesmo não obtenha êxito no quiz não poderá avanças no curso. Caso o aluno responda de forma correta pelo menos 3 perguntas a próxima aula será liberada e o quiz já respondido não poderá ser refeito</p>
+	<small>Em caso de dúvidas, assista o vídeo abaixo </small>
+	<br>
+	<br>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/vlcLB6V5ceI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<br>
+	<br>
+	<h3>Consultas</h3>
+	<p>As consultas servem para facilitar as buscas de Aulas, Cursos e Notícias. A barra de pesquisa no canto superior direito pesquisa únicamente aulas por título, ou seja, ao realizar uma pesquisa pela barra de pessquisas todas as aulas que contenham o texto inserido na pesquisa em seu título serão mostradas.</p>
+	<p>As consultas retornam as aulas, noticias e cursos em ordem cronológica, da mais antiga para a mais rescente. Ao consultar Cursos todos os cursos cadastrados serão exibidos e ao clicar em um curso da consulta todas as aulas daquele curso serão exibidas.</p>
+	<small>Em caso de dúvidas, assista o vídeo abaixo </small>
+	<br>
+	<br>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/xVXFOYZ18yI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<br>
+	<br>
+	<h3>Noticias</h3>
+	<p>As Noticias são informativos criados pela equipe do site, não é necessário login para que as noticias sejam lidas, e você pode avançar para a próxima notícia ou retornar para a notícia anterior apenas com os botões de Próxima Notícia e Notícia Anterioir</p>
+	<small>Em caso de dúvidas, assista o vídeo abaixo </small>
+	<br>
+	<br>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/BDBu_9317Ew" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+	<h3>Ainda restam dúvidas? Entre em contato com a equipe através do e-mail bpf.ifsc@gmail.com</h3>
+
+
 </fieldset>
 {% endblock %}

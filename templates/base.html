@@ -46,7 +46,7 @@
       <div class="dropdown-content-cadastros">
         <h2>LOGIN</h2>
 
-        <form method="post" action="contas/login/">
+        <form method="post" action="{% url 'login' %}">
           {% csrf_token %}
           <input type="text"  id="id_username" name="username" required="required" placeholder="Insira seu usuário" size="13"/>
           <br><br>
@@ -71,8 +71,8 @@
     {% if user.is_authenticated %}
     <li class="botao_sair"><a href="{% url 'logout' %}"><i class="material-icons">person_outline</i> Sair </a></li>
     {% endif %}
-    <!-- <li class="float-right"><a href="#"><i class="material-icons">info</i> Sobre Nós </a></li>
-    <li class="float-right"><a class="botao_ajuda" href="../../../ajuda"><i class="material-icons">help_outline</i> Ajuda</a></li> -->
+    <!-- <li class="float-right"><a href="#"><i class="material-icons">info</i> Sobre Nós </a></li>-->
+    <li class="float-right"><a class="botao_ajuda" href="../../../ajuda"><i class="material-icons">help_outline</i> Ajuda</a></li>
     <li class="li_entrada_pesquisa  float-right">
       <b>
         <form type="get" action="pesquisa/" class="">
